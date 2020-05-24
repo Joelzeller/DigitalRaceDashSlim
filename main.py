@@ -19,13 +19,13 @@ import os
 import math
 # Program Info
 # ---------------------------------------------------------------------------------------------------------------------------------------------
-globalversion = "V0.0.0"
+globalversion = "V0.0.1"
 # 5/24/2020
 # Created by Joel Zeller
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 # Configuration Variables
-developermode = 1           # set to 1 to disable all GPIO, temp probe, and obd stuff
+developermode = 0           # set to 1 to disable all GPIO, temp probe, and obd stuff
 externalshutdown = 0        # set to 1 if you have an external shutdown circuit applied - High = Awake, Low = Shutdown
 AccelPresent = 0            # set to 1 if adxl345 accelerometer is present
 RGBEnabled = 0              # set to 1 if you have RGBs wired in
