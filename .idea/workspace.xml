@@ -25,7 +25,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a53fbcd2-c1a7-4ca9-931f-902d7460cacc" name="Default" comment="" />
+    <list default="true" id="a53fbcd2-c1a7-4ca9-931f-902d7460cacc" name="Default" comment="Digital Race Dash - Slim - Initial Release">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -107,6 +110,14 @@
       <option name="presentableId" value="Default" />
       <updated>1528676077131</updated>
     </task>
+    <task id="LOCAL-00001" summary="Digital Race Dash - Slim - Initial Release">
+      <created>1590337280563</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1590337280563</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -150,16 +161,22 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
+    <MESSAGE value="Digital Race Dash - Slim - Initial Release" />
+    <option name="LAST_COMMIT_MESSAGE" value="Digital Race Dash - Slim - Initial Release" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590332160311">
       <screen x="0" y="0" width="1920" height="1170" />
     </state>
     <state x="414" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1170@0.0.1920.1170" timestamp="1590332160311" />
-    <state x="740" y="340" key="FileChooserDialogImpl" timestamp="1590336370148">
+    <state x="740" y="340" key="FileChooserDialogImpl" timestamp="1590337172101">
       <screen x="0" y="0" width="1920" height="1170" />
     </state>
-    <state x="740" y="340" key="FileChooserDialogImpl/0.0.1920.1170@0.0.1920.1170" timestamp="1590336370148" />
+    <state x="740" y="340" key="FileChooserDialogImpl/0.0.1920.1170@0.0.1920.1170" timestamp="1590337172101" />
+    <state x="686" y="497" width="667" height="318" key="Github.ShareDialog" timestamp="1590337149168">
+      <screen x="0" y="0" width="1920" height="1170" />
+    </state>
+    <state x="686" y="497" width="667" height="318" key="Github.ShareDialog/0.0.1920.1170@0.0.1920.1170" timestamp="1590337149168" />
     <state width="1899" height="199" key="GridCell.Tab.0.bottom" timestamp="1590336888302">
       <screen x="0" y="0" width="1920" height="1170" />
     </state>
@@ -176,9 +193,9 @@
       <screen x="0" y="0" width="1920" height="1170" />
     </state>
     <state width="1899" height="199" key="GridCell.Tab.0.right/0.0.1920.1170@0.0.1920.1170" timestamp="1590336888302" />
-    <state x="461" y="230" key="SettingsEditor" timestamp="1590336969082">
+    <state x="461" y="230" key="SettingsEditor" timestamp="1590337277457">
       <screen x="0" y="0" width="1920" height="1170" />
     </state>
-    <state x="461" y="230" key="SettingsEditor/0.0.1920.1170@0.0.1920.1170" timestamp="1590336969082" />
+    <state x="461" y="230" key="SettingsEditor/0.0.1920.1170@0.0.1920.1170" timestamp="1590337277457" />
   </component>
 </project>
