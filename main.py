@@ -25,7 +25,7 @@ globalversion = "V0.0.1"
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 # Configuration Variables
-developermode = 0           # set to 1 to disable all GPIO, temp probe, and obd stuff
+developermode = 1           # set to 1 to disable all GPIO, temp probe, and obd stuff
 externalshutdown = 0        # set to 1 if you have an external shutdown circuit applied - High = Awake, Low = Shutdown
 AccelPresent = 0            # set to 1 if adxl345 accelerometer is present
 RGBEnabled = 0              # set to 1 if you have RGBs wired in
