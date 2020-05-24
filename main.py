@@ -1,5 +1,5 @@
 import kivy
-#kivy.require('1.0.6')
+#kivy.require('1.11.0')
 from kivy.uix.widget import Widget
 from kivy.graphics import Color, Line
 from kivy.uix.floatlayout import FloatLayout
