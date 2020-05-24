@@ -1,0 +1,1186 @@
+#:import Animation kivy.animation.Animation
+#:import MDProgressBar kivymd.progressbar.MDProgressBar
+#:import MDSlider kivymd.slider.MDSlider
+
+#V0.0.0
+
+# Set Global Font Types to save typing later
+#:set GaugeFont "data/fonts/Eurostile LT Std Medium.ttf"
+#:set ButtonFont "data/fonts/Eurostile LT Std Extended 2.ttf"
+
+# Dock Y ZERO coordinate base. This will make it easier to fine tune the dock pos when installed behind radio opening.
+#:set Dock_y0 160
+
+AnchorLayout:
+    sm: sm
+    ScreenManager:
+        id: sm
+        Gauge1Screen:
+            name: "gauge1"
+            FloatLayout:
+                Image:
+                    source: "data/wallpapers/black.png"
+
+                Image:
+                    source: "data/gauges/warning/WarningRed.png"
+                    opacity: 1 if app.CoolantTemp > app.CoolantTempWarn else 0
+                    pos: 0, 250
+                    size_hint: None, None
+                    height: 250
+                    width: 250
+
+                Image:
+                    source: "data/gauges/S2K_Coolant.png"
+                    opacity: 1
+                    pos: 0, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                Image:
+                    source: str(app.CoolantTemp_Image)
+                    opacity: 1
+                    pos: 0, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                    nocache: True
+
+                Image:
+                    source: "data/gauges/warning/WarningRed.png"
+                    opacity: 1 if app.IntakeTemp > app.IntakeTempWarn else 0
+                    pos: 275, 250
+                    size_hint: None, None
+                    height: 250
+                    width: 250
+
+                Image:
+                    source: "data/gauges/S2K_Intake.png"
+                    opacity: 1
+                    pos: 275, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                Image:
+                    source: str(app.IntakeTemp_Image)
+                    opacity: 1
+                    pos: 275, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                    nocache: True
+
+                Image:
+                    source: "data/gauges/warning/WarningRed.png"
+                    opacity: 1 if app.CatTemp > app.CatTempWarn else 0
+                    pos: 550, 250
+                    size_hint: None, None
+                    height: 250
+                    width: 250
+
+                Image:
+                    source: "data/gauges/S2K_Cat.png"
+                    opacity: 1
+                    pos: 550, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                Image:
+                    source: str(app.CatTemp_Image)
+                    opacity: 1
+                    pos: 550, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                    nocache: True
+
+                Label:
+                    text: (str(app.CoolantTemp)) + u'\N{DEGREE SIGN}'
+                    font_size: 70
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                    halign: 'center'
+                    valign: 'middle'
+                    font_hinting: None
+                    pos: 0, 230
+                    font_name: GaugeFont
+                Label:
+                    text: (str(app.IntakeTemp)) + u'\N{DEGREE SIGN}'
+                    font_size: 70
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                    halign: 'center'
+                    valign: 'middle'
+                    font_hinting: None
+                    pos: 275, 230
+                    font_name: GaugeFont
+                Label:
+                    text: (str(app.CatTemp)) + u'\N{DEGREE SIGN}'
+                    font_size: 70
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                    halign: 'center'
+                    valign: 'middle'
+                    font_hinting: None
+                    pos: 550, 230
+                    font_name: GaugeFont
+
+        Gauge2Screen:
+            name: "gauge2"
+            FloatLayout:
+                Image:
+                    source: "data/wallpapers/black.png"
+
+                Image:
+                    source: "data/gauges/warning/WarningRed.png"
+                    opacity: 1 if app.CoolantTemp > app.CoolantTempWarn else 0
+                    pos: 0, 250
+                    size_hint: None, None
+                    height: 250
+                    width: 250
+
+                Image:
+                    source: "data/gauges/S2K_Coolant.png"
+                    opacity: 1
+                    pos: 0, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                Image:
+                    source: str(app.CoolantTemp_Image)
+                    opacity: 1
+                    pos: 0, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+
+                Image:
+                    source: "data/gauges/warning/WarningRed.png"
+                    opacity: 1 if abs(app.STFT) > app.STFTWarn else 0
+                    pos: 275, 250
+                    size_hint: None, None
+                    height: 250
+                    width: 250
+
+                Image:
+                    source: "data/gauges/S2K_STFT.png"
+                    opacity: 1
+                    pos: 275, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                Image:
+                    source: str(app.STFT_Image)
+                    opacity: 1
+                    pos: 275, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+
+                Image:
+                    source: "data/gauges/warning/WarningRed.png"
+                    opacity: 1 if abs(app.LTFT) > app.LTFTWarn else 0
+                    pos: 550, 250
+                    size_hint: None, None
+                    height: 250
+                    width: 250
+
+                Image:
+                    source: "data/gauges/S2K_LTFT.png"
+                    opacity: 1
+                    pos: 550, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                Image:
+                    source: str(app.LTFT_Image)
+                    opacity: 1
+                    pos: 550, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+
+                Label:
+                    text: (str(app.CoolantTemp)) + u'\N{DEGREE SIGN}'
+                    font_size: 70
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                    halign: 'center'
+                    valign: 'middle'
+                    font_hinting: None
+                    pos: 0, 230
+                    font_name: GaugeFont
+                Label:
+                    text: (str(app.STFT)) + "%"
+                    font_size: 70
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                    halign: 'center'
+                    valign: 'middle'
+                    font_hinting: None
+                    pos: 275, 230
+                    font_name: GaugeFont
+                Label:
+                    text: (str(app.LTFT)) + "%"
+                    font_size: 70
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                    halign: 'center'
+                    valign: 'middle'
+                    font_hinting: None
+                    pos: 550, 230
+                    font_name: GaugeFont
+
+        Gauge3Screen:
+            name: "gauge3"
+            FloatLayout:
+                Image:
+                    source: "data/wallpapers/black.png"
+
+                Image:
+                    source: "data/gauges/S2K_Throttle.png"
+                    opacity: 1
+                    pos: 0, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                Image:
+                    source: str(app.ThrottlePos_Image)
+                    opacity: 1
+                    pos: 0, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+
+                Image:
+                    source: "data/gauges/ThrottlePlate.png"
+                    opacity: 1
+                    pos: 89, 339
+                    size_hint: None, None
+                    height: 72
+                    width: 72
+                    canvas.before:
+                        PushMatrix
+                        Rotate:
+                            angle: app.ThrottlePos
+                            axis: 0, 0, 1
+                            origin: self.center
+                    canvas.after:
+                        PopMatrix
+
+
+                Image:
+                    source: "data/gauges/S2K_Load.png"
+                    opacity: 1
+                    pos: 275, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                Image:
+                    source: str(app.Load_Image)
+                    opacity: 1
+                    pos: 275, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+
+                Image:
+                    source: "data/gauges/S2K_Timing.png"
+                    opacity: 1
+                    pos: 550, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                Image:
+                    source: str(app.TimingAdv_Image)
+                    opacity: 1
+                    pos: 550, 350
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+
+                Label:
+                    text: (str(app.ThrottlePos)) + "%"
+                    font_size: 70
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                    halign: 'center'
+                    valign: 'middle'
+                    font_hinting: None
+                    pos: 0, 230
+                    font_name: GaugeFont
+                Label:
+                    text: (str(app.Load)) + "%"
+                    font_size: 70
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                    halign: 'center'
+                    valign: 'middle'
+                    font_hinting: None
+                    pos: 275, 230
+                    font_name: GaugeFont
+                Label:
+                    text: (str(app.TimingAdv)) + u'\N{DEGREE SIGN}'
+                    font_size: 70
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                    halign: 'center'
+                    valign: 'middle'
+                    font_hinting: None
+                    pos: 550, 230
+                    font_name: GaugeFont
+
+        Gauge4Screen:
+            name: "gauge4"
+            FloatLayout:
+                Image:
+                    source: "data/wallpapers/black.png"
+
+        MaxScreen:
+            name: "max"
+            FloatLayout:
+                Image:
+                    source: "data/wallpapers/MaxScreen.png"
+                Label:
+                    text: (str(app.Speed))
+                    text_size: 300, 100
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 80
+                    pos: -270, 190
+                    font_name: GaugeFont
+                Label:
+                    text: (str(app.RPM))
+                    text_size: 300, 100
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 80
+                    pos: -270, 80
+                    font_name: GaugeFont
+                Label:
+                    text: "MPH"
+                    text_size: 300, 100
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 15
+                    pos: -230, 173
+                    font_name: GaugeFont
+                Label:
+                    text: "RPM"
+                    text_size: 300, 100
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 15
+                    pos: -230, 63
+                    font_name: GaugeFont
+
+                Label:
+                    text: (str(app.Speed_max))
+                    text_size: 300, 100
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 80
+                    pos: 170, 190
+                    font_name: GaugeFont
+                Label:
+                    text: (str(app.RPM_max))
+                    text_size: 300, 100
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 80
+                    pos: 170, 80
+                    font_name: GaugeFont
+                Label:
+                    text: "MPH"
+                    text_size: 300, 100
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 15
+                    pos: 210, 173
+                    font_name: GaugeFont
+
+                Label:
+                    text: "RPM"
+                    text_size: 300, 100
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 15
+                    pos: 210, 63
+                    font_name: GaugeFont
+
+                Label:
+                    text: "CURRENT"
+                    text_size: 400, 100
+                    halign: 'center'
+                    valign: 'middle'
+                    font_size: 30
+                    pos: -220, Dock_y0 - 150
+                    font_name: GaugeFont
+                Label:
+                    text: "MAX"
+                    text_size: 400, 100
+                    halign: 'center'
+                    valign: 'middle'
+                    font_size: 30
+                    pos: 220, Dock_y0 - 150
+                    font_name: GaugeFont
+
+                Button:
+                    background_normal: 'data/elements/MaxIcons/Reset.png'
+                    background_down: 'data/elements/MaxIcons/Reset_pressed.png'
+                    opacity: 1
+                    pos: 365, Dock_y0+70
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+                    on_press: app.zero_out_max()
+
+        InfoScreen:
+            name: "info"
+            FloatLayout:
+                Image:
+                    source: "data/wallpapers/CarInfo.png"
+
+                Label:
+                    text: "SSID: " + app.WifiNetwork
+                    text_size: 280, 50
+                    halign: 'left'
+                    valign: 'middle'
+                    font_size: 20
+                    pos: -250, 213
+                    font_name: GaugeFont
+                Label:
+                    text: "IP: " + app.ipAddress
+                    text_size: 280, 50
+                    halign: 'left'
+                    valign: 'middle'
+                    font_size: 20
+                    pos: -250, 183
+                    font_name: GaugeFont
+                Label:
+                    text: "CPU Temp: " + str(app.CPUTemp) + u'\N{DEGREE SIGN}' + "C"
+                    text_size: 280, 50
+                    halign: 'left'
+                    valign: 'middle'
+                    font_size: 20
+                    pos: -250, 153
+                    font_name: GaugeFont
+                    color: (1,0,0,1) if app.CPUTemp > 70 else (1,1,1,1)
+                Label:
+                    text: "CPU Core Voltage: " + str(app.CPUVolts) + "V"
+                    text_size: 280, 50
+                    halign: 'left'
+                    valign: 'middle'
+                    font_size: 20
+                    pos: -250, 123
+                    font_name: GaugeFont
+
+                Image:
+                    source: 'data/elements/InfoIcons/timer.png'
+                    size: 50, 50
+                    pos: 20, 215
+                Image:
+                    source: 'data/elements/InfoIcons/counter.png'
+                    size: 50, 50
+                    pos: 20, 165
+                Image:
+                    source: 'data/elements/InfoIcons/distance.png'
+                    size: 50, 50
+                    pos: 20, 115
+                Image:
+                    source: 'data/elements/InfoIcons/gas.png'
+                    size: 50, 50
+                    pos: 20, 65
+                Label:
+                    text: "Current Cycle Minutes:"
+                    text_size: 280, 50
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 20
+                    pos: 150, 213
+                    font_name: GaugeFont
+                Label:
+                    text: "Cycles Since Reset:"
+                    text_size: 280, 50
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 20
+                    pos: 150, 163
+                    font_name: GaugeFont
+                Label:
+                    text: "Miles Since Reset:"
+                    text_size: 280, 50
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 20
+                    pos: 150, 113
+                    font_name: GaugeFont
+                Label:
+                    text: "Gallons Remaining:"
+                    text_size: 280, 50
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 20
+                    pos: 150, 63
+                    font_name: GaugeFont
+                Label:
+                    text: (str(app.RunTime)).strip()[:-2]
+                    pos: 350, 213
+                    font_size: 30
+                    text_size: 100, 50
+                    halign: 'left'
+                    valign: 'middle'
+                    font_name: GaugeFont
+                Label:
+                    text: (str(app.WarmUpsSinceDTC)).strip()[:-2]
+                    pos: 350, 163
+                    font_size: 30
+                    text_size: 100, 50
+                    halign: 'left'
+                    valign: 'middle'
+                    font_name: GaugeFont
+                Label:
+                    text: (str(app.DistanceSinceDTC/1.60934)).strip()[:-9]
+                    pos: 350, 113
+                    font_size: 30
+                    text_size: 100, 50
+                    halign: 'left'
+                    valign: 'middle'
+                    font_name: GaugeFont
+                Label:
+                    text: (str(app.FuelLevel*13.2/100)).strip()[:-1]
+                    pos: 350, 63
+                    font_size: 30
+                    text_size: 100, 50
+                    halign: 'left'
+                    valign: 'middle'
+                    font_name: GaugeFont
+
+
+        SettingsScreen:
+            name: "settings"
+            FloatLayout:
+                Image:
+                    source: "data/wallpapers/black.png"
+                Button:
+                    background_normal: 'data/elements/Apps/Warnings.png'
+                    background_down: 'data/elements/Apps/Warnings_pressed.png'
+                    opacity: 1
+                    pos: 0, 380
+                    size_hint: None, None
+                    height: 100
+                    width: 100
+                    on_press: sm.current = 'tempsettings'
+                Button:
+                    background_normal: 'data/elements/Apps/OBDreset.png'
+                    background_down: 'data/elements/Apps/OBDreset_pressed.png'
+                    opacity: 1
+                    pos: 100, 380
+                    size_hint: None, None
+                    height: 100
+                    width: 100
+                Button:
+                    background_normal: 'data/elements/Apps/CEL.png'
+                    background_down: 'data/elements/Apps/CEL_pressed.png'
+                    opacity: 1
+                    pos: 200, 380
+                    size_hint: None, None
+                    height: 100
+                    width: 100
+
+                Button:
+                    background_normal: 'data/elements/Settings/Reboot.png'
+                    background_down: 'data/elements/Settings/Reboot_pressed.png'
+                    opacity: 1
+                    pos: 730, 250
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+                    on_press: app.save()
+                    on_release: app.reboot()
+
+                Button:
+                    background_normal: 'data/elements/Settings/ExitApp.png'
+                    background_down: 'data/elements/Settings/ExitApp_pressed.png'
+                    opacity: 1
+                    pos: 730, 320
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+                    on_press: app.save()
+                    on_release: app.killapp()
+
+        TempSettingsScreen:
+            name: "tempsettings"
+            FloatLayout:
+                Image:
+                    source: "data/wallpapers/black.png"
+                Label:
+                    text: "WARNING THRESHOLDS"
+                    font_size: 25
+                    pos: 0, 220
+                    font_name: ButtonFont
+
+                Button:
+                    background_normal: 'data/elements/Settings/Left.png'
+                    background_down: 'data/elements/Settings/Left_pressed.png'
+                    opacity: 1
+                    pos: 0, 320
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+                    on_press:
+                        sm.transition.direction = 'right'
+                        sm.current = 'speedsettings'
+
+                Button:
+                    background_normal: 'data/elements/Settings/Right.png'
+                    background_down: 'data/elements/Settings/Right_pressed.png'
+                    opacity: 1
+                    pos: 730, 320
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+                    on_press:
+                        sm.transition.direction = 'left'
+                        sm.current = 'fuelsettings'
+
+                MDSlider:
+                    pos: 230, 400
+                    min: 0
+                    max: app.CoolantTempGaugeMax
+                    value: app.CoolantTempWarn
+                    on_value: app.CoolantTempWarnSlider(*args)
+                    size_hint: None, None
+                    height: 50
+                    width: 500
+                Label:
+                    text: str(app.CoolantTempWarn) + u'\N{DEGREE SIGN}'
+                    font_size: 30
+                    pos: -210, 190
+                    text_size: 100, 50
+                    halign: 'right'
+                    font_name: GaugeFont
+                Image:
+                    source: 'data/gauges/icons/Coolant.png'
+                    pos: 80, 390
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+                MDSlider:
+                    pos: 230, 330
+                    min: 0
+                    max: app.IntakeTempGaugeMax
+                    value: app.IntakeTempWarn
+                    on_value: app.IntakeTempWarnSlider(*args)
+                    size_hint: None, None
+                    height: 50
+                    width: 500
+                Label:
+                    text: str(app.IntakeTempWarn) + u'\N{DEGREE SIGN}'
+                    font_size: 30
+                    pos: -210, 120
+                    text_size: 100, 50
+                    halign: 'right'
+                    font_name: GaugeFont
+                Image:
+                    source: 'data/gauges/icons/Intake.png'
+                    pos: 80, 320
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+                MDSlider:
+                    pos: 230, 260
+                    min: 0
+                    max: app.CatTempGaugeMax
+                    value: app.CatTempWarn
+                    on_value: app.CatTempWarnSlider(*args)
+                    size_hint: None, None
+                    height: 50
+                    width: 500
+                Label:
+                    text: str(app.CatTempWarn) + u'\N{DEGREE SIGN}'
+                    font_size: 30
+                    pos: -210, 50
+                    text_size: 100, 50
+                    halign: 'right'
+                    font_name: GaugeFont
+                Image:
+                    source: 'data/gauges/icons/Cat.png'
+                    pos: 80, 250
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+
+
+        FuelSettingsScreen:
+            name: "fuelsettings"
+            FloatLayout:
+                Image:
+                    source: "data/wallpapers/black.png"
+                Label:
+                    text: "WARNING THRESHOLDS"
+                    font_size: 25
+                    pos: 0, 220
+                    font_name: ButtonFont
+
+                Button:
+                    background_normal: 'data/elements/Settings/Left.png'
+                    background_down: 'data/elements/Settings/Left_pressed.png'
+                    opacity: 1
+                    pos: 0, 320
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+                    on_press:
+                        sm.transition.direction = 'right'
+                        sm.current = 'tempsettings'
+
+                Button:
+                    background_normal: 'data/elements/Settings/Right.png'
+                    background_down: 'data/elements/Settings/Right_pressed.png'
+                    opacity: 1
+                    pos: 730, 320
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+                    on_press:
+                        sm.transition.direction = 'left'
+                        sm.current = 'speedsettings'
+
+                MDSlider:
+                    pos: 230, 400
+                    min: 0
+                    max: app.STFTGaugeMax
+                    value: app.STFTWarn
+                    on_value: app.STFTWarnSlider(*args)
+                    size_hint: None, None
+                    height: 50
+                    width: 500
+                Label:
+                    text: u'\N{PLUS-MINUS SIGN}' + str(app.STFTWarn) + "%"
+                    font_size: 30
+                    pos: -210, 190
+                    text_size: 100, 50
+                    halign: 'right'
+                    font_name: GaugeFont
+                Image:
+                    source: 'data/gauges/icons/STFT.png'
+                    pos: 80, 390
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+                MDSlider:
+                    pos: 230, 330
+                    min: 0
+                    max: app.LTFTGaugeMax
+                    value: app.LTFTWarn
+                    on_value: app.LTFTWarnSlider(*args)
+                    size_hint: None, None
+                    height: 50
+                    width: 500
+                Label:
+                    text: u'\N{PLUS-MINUS SIGN}' + str(app.LTFTWarn) + "%"
+                    font_size: 30
+                    pos: -210, 120
+                    text_size: 100, 50
+                    halign: 'right'
+                    font_name: GaugeFont
+                Image:
+                    source: 'data/gauges/icons/LTFT.png'
+                    pos: 80, 320
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+
+        SpeedSettingsScreen:
+            name: "speedsettings"
+            FloatLayout:
+                Image:
+                    source: "data/wallpapers/black.png"
+                Label:
+                    text: "WARNING THRESHOLDS"
+                    font_size: 25
+                    pos: 0, 220
+                    font_name: ButtonFont
+
+                Button:
+                    background_normal: 'data/elements/Settings/Left.png'
+                    background_down: 'data/elements/Settings/Left_pressed.png'
+                    opacity: 1
+                    pos: 0, 320
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+                    on_press:
+                        sm.transition.direction = 'right'
+                        sm.current = 'fuelsettings'
+
+                Button:
+                    background_normal: 'data/elements/Settings/Right.png'
+                    background_down: 'data/elements/Settings/Right_pressed.png'
+                    opacity: 1
+                    pos: 730, 320
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+                    on_press:
+                        sm.transition.direction = 'left'
+                        sm.current = 'tempsettings'
+
+                MDSlider:
+                    pos: 230, 400
+                    min: 0
+                    max: app.RPMGaugeMax
+                    value: app.RPMWarn
+                    on_value: app.RPMWarnSlider(*args)
+                    size_hint: None, None
+                    height: 50
+                    width: 500
+                Label:
+                    text: str(app.RPMWarn)
+                    font_size: 30
+                    pos: -215, 190
+                    text_size: 100, 50
+                    halign: 'right'
+                    font_name: GaugeFont
+                Image:
+                    source: 'data/gauges/icons/RPM.png'
+                    pos: 80, 390
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+                MDSlider:
+                    pos: 230, 330
+                    min: 0
+                    max: app.SpeedGaugeMax
+                    value: app.SpeedWarn
+                    on_value: app.SpeedWarnSlider(*args)
+                    size_hint: None, None
+                    height: 50
+                    width: 500
+                Label:
+                    text: str(app.SpeedWarn)
+                    font_size: 30
+                    pos: -215, 120
+                    text_size: 100, 50
+                    halign: 'right'
+                    font_name: GaugeFont
+                Image:
+                    source: 'data/gauges/icons/Speed.png'
+                    pos: 80, 320
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+
+    AnchorLayout: #define the QUICKEYS area
+        FloatLayout:
+            Image:
+                id: dock
+                source: 'data/elements/Dock/Dock.png'
+                opacity: 1
+                pos: 0, Dock_y0
+                size_hint: None, None
+                height: 70
+                width: 800
+
+            Image:
+                id: BrightnessRibbon
+                source: 'data/elements/BrightnessRibbon/Ribbon.png'
+                opacity: 1
+                pos: 0, Dock_y0-250
+                size_hint: None, None
+                height: 300
+                width: 70
+            Button:
+                id: BrightnessRibbon_full
+                background_normal: 'data/elements/BrightnessRibbon/Full.png'
+                background_down: 'data/elements/BrightnessRibbon/Full_pressed.png'
+                opacity: 1
+                pos: 0, Dock_y0 - 50
+                size_hint: None, None
+                height: 70
+                width: 70
+                on_press: app.BrightnessSet(255)
+                on_press:
+                    Animation(y=Dock_y0 - 250, duration=.2).start(BrightnessRibbon)
+                    Animation(y=Dock_y0 - 50, duration=.2).start(BrightnessRibbon_full)
+                    Animation(y=Dock_y0 - 100, duration=.2).start(BrightnessRibbon_2third)
+                    Animation(y=Dock_y0 - 150, duration=.2).start(BrightnessRibbon_1third)
+                    Animation(y=Dock_y0 - 200, duration=.2).start(BrightnessRibbon_low)
+                    Animation(y=Dock_y0 - 250, duration=0).start(BrightnessRibbon_exit)
+            Button:
+                id: BrightnessRibbon_2third
+                background_normal: 'data/elements/BrightnessRibbon/2third.png'
+                background_down: 'data/elements/BrightnessRibbon/2third_pressed.png'
+                opacity: 1
+                pos: 0, Dock_y0 - 100
+                size_hint: None, None
+                height: 70
+                width: 70
+                on_press: app.BrightnessSet(150)
+                on_press:
+                    Animation(y=Dock_y0 - 250, duration=.2).start(BrightnessRibbon)
+                    Animation(y=Dock_y0 - 50, duration=.2).start(BrightnessRibbon_full)
+                    Animation(y=Dock_y0 - 100, duration=.2).start(BrightnessRibbon_2third)
+                    Animation(y=Dock_y0 - 150, duration=.2).start(BrightnessRibbon_1third)
+                    Animation(y=Dock_y0 - 200, duration=.2).start(BrightnessRibbon_low)
+                    Animation(y=Dock_y0 - 250, duration=0).start(BrightnessRibbon_exit)
+            Button:
+                id: BrightnessRibbon_1third
+                background_normal: 'data/elements/BrightnessRibbon/1third.png'
+                background_down: 'data/elements/BrightnessRibbon/1third_pressed.png'
+                opacity: 1
+                pos: 0, Dock_y0 - 150
+                size_hint: None, None
+                height: 70
+                width: 70
+                on_press: app.BrightnessSet(55)
+                on_press:
+                    Animation(y=Dock_y0 - 250, duration=.2).start(BrightnessRibbon)
+                    Animation(y=Dock_y0 - 50, duration=.2).start(BrightnessRibbon_full)
+                    Animation(y=Dock_y0 - 100, duration=.2).start(BrightnessRibbon_2third)
+                    Animation(y=Dock_y0 - 150, duration=.2).start(BrightnessRibbon_1third)
+                    Animation(y=Dock_y0 - 200, duration=.2).start(BrightnessRibbon_low)
+                    Animation(y=Dock_y0 - 250, duration=0).start(BrightnessRibbon_exit)
+            Button:
+                id: BrightnessRibbon_low
+                background_normal: 'data/elements/BrightnessRibbon/Low.png'
+                background_down: 'data/elements/BrightnessRibbon/Low_pressed.png'
+                opacity: 1
+                pos: 0, Dock_y0 - 200
+                size_hint: None, None
+                height: 70
+                width: 70
+                on_press: app.BrightnessSet(15)
+                on_press:
+                    Animation(y=Dock_y0 - 250, duration=.2).start(BrightnessRibbon)
+                    Animation(y=Dock_y0 - 50, duration=.2).start(BrightnessRibbon_full)
+                    Animation(y=Dock_y0 - 100, duration=.2).start(BrightnessRibbon_2third)
+                    Animation(y=Dock_y0 - 150, duration=.2).start(BrightnessRibbon_1third)
+                    Animation(y=Dock_y0 - 200, duration=.2).start(BrightnessRibbon_low)
+                    Animation(y=Dock_y0 - 250, duration=0).start(BrightnessRibbon_exit)
+
+
+            Button:
+                id: dock_brightness
+                background_normal: 'data/elements/Dock/BrightnessButton.png'
+                background_down: 'data/elements/Dock/BrightnessButton_pressed.png'
+                opacity: 1
+                pos: 0, Dock_y0
+                size_hint: None, None
+                height: 70
+                width: 70
+                on_press: app.save()
+                on_press:
+                    Animation(y=Dock_y0, duration=.2).start(BrightnessRibbon)
+                    Animation(y=Dock_y0 + 200, duration=.2).start(BrightnessRibbon_full)
+                    Animation(y=Dock_y0 + 150, duration=.2).start(BrightnessRibbon_2third)
+                    Animation(y=Dock_y0 + 100, duration=.2).start(BrightnessRibbon_1third)
+                    Animation(y=Dock_y0 + 50, duration=.2).start(BrightnessRibbon_low)
+                    Animation(y=Dock_y0, duration=0).start(BrightnessRibbon_exit)
+
+            Button:
+                id: BrightnessRibbon_exit
+                background_normal: 'data/elements/BrightnessRibbon/Exit.png'
+                background_down: 'data/elements/BrightnessRibbon/Exit_pressed.png'
+                opacity: 1
+                pos: 0, Dock_y0 - 250
+                size_hint: None, None
+                height: 70
+                width: 70
+                on_press:
+                    Animation(y=Dock_y0 - 250, duration=.2).start(BrightnessRibbon)
+                    Animation(y=Dock_y0 - 50, duration=.2).start(BrightnessRibbon_full)
+                    Animation(y=Dock_y0 - 100, duration=.2).start(BrightnessRibbon_2third)
+                    Animation(y=Dock_y0 - 150, duration=.2).start(BrightnessRibbon_1third)
+                    Animation(y=Dock_y0 - 200, duration=.2).start(BrightnessRibbon_low)
+                    Animation(y=Dock_y0 - 250, duration=0).start(BrightnessRibbon_exit)
+
+            Button:
+                id: dock_settings
+                background_normal: 'data/elements/Dock/SettingsButton.png'
+                background_down: 'data/elements/Dock/SettingsButton_pressed.png'
+                opacity: 1
+                pos: 670, Dock_y0
+                size_hint: None, None
+                height: 70
+                width: 70
+                on_press: app.save()
+                on_press: sm.current = 'settings'
+
+            Button:
+                id: dock_power
+                background_normal: 'data/elements/Dock/PowerButton.png'
+                background_down: 'data/elements/Dock/PowerButton_pressed.png'
+                opacity: 1
+                pos: 730, Dock_y0
+                size_hint: None, None
+                height: 70
+                width: 70
+                on_press: app.save()
+                on_press: app.ScreenOnOff("OFF")
+                on_release: app.shutdown()
+
+
+            Button:
+                id: dock_gauge1
+                background_normal: 'data/elements/Dock/DockPill.png'
+                background_down: 'data/elements/Dock/DockPill_pressed.png'
+                opacity: 1
+                pos: 66, Dock_y0
+                size_hint: None, None
+                height: 70
+                width: 101
+                on_press:
+                    sm.transition.direction = 'left'
+                    sm.current = 'gauge1'
+                    app.OBDOFF()
+                    app.OBDEnabler("CoolantTemp",1)
+                    app.OBDEnabler("IntakeTemp",1)
+                    app.OBDEnabler("CatTemp",1)
+                    app.save()
+                Label:
+                    text: "1"
+                    text_size: 101, 70
+                    valign: 'middle'
+                    halign: 'center'
+                    font_size: 28
+                    font_name: ButtonFont
+                    pos: self.parent.center_x - 50, self.parent.center_y - 53
+
+
+
+            Button:
+                id: dock_gauge2
+                background_normal: 'data/elements/Dock/DockPill.png'
+                background_down: 'data/elements/Dock/DockPill_pressed.png'
+                opacity: 1
+                pos: 168, Dock_y0
+                size_hint: None, None
+                height: 70
+                width: 101
+                on_press:
+                    sm.transition.direction = 'left'
+                    sm.current = 'gauge2'
+                    app.OBDOFF()
+                    app.OBDEnabler("CoolantTemp",1)
+                    app.OBDEnabler("STFT",1)
+                    app.OBDEnabler("LTFT",1)
+                    app.save()
+                Label:
+                    text: "2"
+                    text_size: 101, 70
+                    valign: 'middle'
+                    halign: 'center'
+                    font_size: 28
+                    font_name: ButtonFont
+                    pos: self.parent.center_x - 50, self.parent.center_y - 53
+
+            Button:
+                id: dock_gauge3
+                background_normal: 'data/elements/Dock/DockPill.png'
+                background_down: 'data/elements/Dock/DockPill_pressed.png'
+                opacity: 1
+                pos: 270, Dock_y0
+                size_hint: None, None
+                height: 70
+                width: 101
+                on_press:
+                    sm.transition.direction = 'left'
+                    sm.current = 'gauge3'
+                    app.OBDOFF()
+                    app.OBDEnabler("ThrottlePos",1)
+                    app.OBDEnabler("Load",1)
+                    app.OBDEnabler("TimingAdv",1)
+                    app.save()
+                Label:
+                    text: "3"
+                    text_size: 101, 70
+                    valign: 'middle'
+                    halign: 'center'
+                    font_size: 28
+                    font_name: ButtonFont
+                    pos: self.parent.center_x - 50, self.parent.center_y - 53
+
+            Button:
+                id: dock_gauge4
+                background_normal: 'data/elements/Dock/DockPill.png'
+                background_down: 'data/elements/Dock/DockPill_pressed.png'
+                opacity: 1
+                pos: 371, Dock_y0
+                size_hint: None, None
+                height: 70
+                width: 101
+                on_press:
+                    sm.transition.direction = 'left'
+                    sm.current = 'gauge4'
+                    app.OBDOFF()
+                    app.save()
+                Label:
+                    text: "4"
+                    text_size: 101, 70
+                    valign: 'middle'
+                    halign: 'center'
+                    font_size: 28
+                    font_name: ButtonFont
+                    pos: self.parent.center_x - 50, self.parent.center_y - 53
+
+            Button:
+                id: dock_max
+                background_normal: 'data/elements/Dock/DockPill.png'
+                background_down: 'data/elements/Dock/DockPill_pressed.png'
+                opacity: 1
+                pos: 472, Dock_y0
+                size_hint: None, None
+                height: 70
+                width: 101
+                on_press:
+                    sm.transition.direction = 'left'
+                    sm.current = 'max'
+                    app.OBDOFF()
+                    app.OBDEnabler("Speed",1)
+                    app.OBDEnabler("RPM",1)
+                    app.save()
+                Label:
+                    text: "MAX"
+                    text_size: 101, 70
+                    valign: 'middle'
+                    halign: 'center'
+                    font_size: 20
+                    font_name: ButtonFont
+                    pos: self.parent.center_x - 50, self.parent.center_y - 53
+
+            Button:
+                id: dock_info
+                background_normal: 'data/elements/Dock/InfoButton.png'
+                background_down: 'data/elements/Dock/InfoButton_pressed.png'
+                opacity: 1
+                pos: 573, Dock_y0
+                size_hint: None, None
+                height: 70
+                width: 101
+                on_press:
+                    sm.transition.direction = 'left'
+                    sm.current = 'info'
+                    app.OBDOFF()
+                    app.OBDEnabler("RunTime",1)
+                    app.OBDEnabler("FuelLevel",1)
+                    app.OBDEnabler("WarmUpsSinceDTC",1)
+                    app.OBDEnabler("DistanceSinceDTC",1)
+                    app.save()
+
+            FloatLayout:  # Black "cover" for hidden part of screen
+                canvas:
+                    Rectangle:
+                        source: 'data/elements/Dock/UnviewableArea.png'
+                        pos: 0, 0
+                        size: 800, Dock_y0
