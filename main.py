@@ -5,7 +5,7 @@ from kivy.graphics import Color, Line
 from kivy.uix.floatlayout import FloatLayout
 from kivy.clock import Clock
 from kivy.properties import NumericProperty, StringProperty, BooleanProperty, ListProperty, ObjectProperty
-from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition, SlideTransition, FadeTransition
+from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition, SlideTransition
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty
@@ -17,10 +17,11 @@ import datetime
 import time
 import os
 import math
+
 # Program Info
 # ---------------------------------------------------------------------------------------------------------------------------------------------
-globalversion = "V0.0.1"
-# 5/24/2020
+globalversion = "V1.0.0"
+# 6/13/2020
 # Created by Joel Zeller
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -28,66 +29,36 @@ globalversion = "V0.0.1"
 developermode = 1           # set to 1 to disable all GPIO, temp probe, and obd stuff
 externalshutdown = 0        # set to 1 if you have an external shutdown circuit applied - High = Awake, Low = Shutdown
 AccelPresent = 0            # set to 1 if adxl345 accelerometer is present
-RGBEnabled = 0              # set to 1 if you have RGBs wired in
 OBDPresent = 1              # set to 1 if you have an OBD connection with the vehicle
-autobrightness = 0          # AutoBrightness on Boot #set to 1 if you have the newer RPi display and want autobrightness
+onPi = 1                    # 1 by default, will change to 0 if code cannot import GPIO from Pi
+autobrightness = 2          # AutoBrightness on Boot #set to 1 if you have the newer RPi display and want autobrightness
                                 # set to 0 if you do not or do not want autobrightness
                                 # adjust to suit your needs :)
                             # Set to 2 for auto dim on boot every time (use main screen full screen button to toggle full dim and full bright)
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------
-# For PC dev work -----------------------
+# For PC dev work
 from kivy.config import Config
 Config.set('graphics', 'width', '800')
 Config.set('graphics', 'height', '480')
 from kivy.core.window import Window
 Window.size = (800, 480)
-# ---------------------------------------
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 # Inital Setup functions
-if developermode == 0:
-    try:
-        import RPi.GPIO as GPIO
-        import obd
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setwarnings(False)
-        if externalshutdown == 1:
-            GPIO.setup(21, GPIO.IN)  # setup GPIO pin #21 as external shutdown pin
-    except:
-        pass
-else:
+try:
+    import RPi.GPIO as GPIO
+    onPi = 1  # If GPIO is successfully imported, we can assume we are running on a Raspberry Pi
+    import obd
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+    if externalshutdown == 1:
+        GPIO.setup(21, GPIO.IN)  # setup GPIO pin #21 as external shutdown pin
+except:
+    onPi = 0
     OBDPresent = 0
-    RGBEnabled = 0
     externalshutdown = 0
-
-class sys:
-    version = globalversion
-    ip = "No IP address found..."
-    ssid = "No SSID found..."
-    CPUTemp = 0
-    CPUVolts = 0
-    allowinfoflag = False
-    screen = 1
-    brightness = 0
-    shutdownflag = 0
-    def setbrightness(self, value):
-        sys.brightness = value
-        brightset = 'sudo bash -c "echo ' + str(sys.brightness) + ' > /sys/class/backlight/rpi_backlight/brightness"'
-        os.system(brightset)
-
-# ---------------------------------------------------------------------------------------------------------------------------------------------
-# Set initial brightness of display - based on time
-if developermode == 0:
-    if autobrightness == 1:  # temporary method - possibly get location specific and date specific sun up and down times
-        currenthour = int(time.strftime("%-H"))  # hour as decimal (24hour)
-        if currenthour < 7 or currenthour >= 20:  # earlier than 7am and later than 6pm -> dim screen on start
-            sys().setbrightness(15)
-        else:
-            sys().setbrightness(255)
-
-    if autobrightness == 2:  # start on dim every time - can change by tapping first screen (switch from dim to full bright)
-        sys().setbrightness(15)
+    print("This is not being run on a Raspberry Pi. Functionality is limited.")
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 # Auto Shutdown Code
@@ -119,6 +90,53 @@ if externalshutdown == 1:
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 # Initialize Classes and Variables and a few threads
+class sys:
+    version = globalversion
+    ip = "No IP address found..."
+    ssid = "No SSID found..."
+    CPUTemp = 0
+    CPUVolts = 0
+    getsysteminfo = False
+    screen = 1
+    brightness = 0
+    shutdownflag = 0
+    TempUnit = "F"
+    SpeedUnit = "MPH"
+
+    def setbrightness(self, value):
+        sys.brightness = value
+        brightset = 'sudo bash -c "echo ' + str(sys.brightness) + ' > /sys/class/backlight/rpi_backlight/brightness"'
+        os.system(brightset)
+
+    def loaddata(self):
+        f = open('savedata.txt', 'r+')  # read from text file
+        OBD.warning.RPM = int(f.readline())
+        OBD.warning.Speed = int(f.readline())
+        OBD.warning.CoolantTemp = int(f.readline())
+        OBD.warning.IntakeTemp = int(f.readline())
+        OBD.warning.LTFT = int(f.readline())
+        OBD.warning.STFT = int(f.readline())
+        OBD.warning.CatTemp = int(f.readline())
+        sys.Fahrenheit = f.readline().rstrip()
+        sys.MPH = f.readline().rstrip()
+        f.close()
+
+    def savedata(self):
+        f = open('savedata.txt', 'r+')
+        f.truncate()  # wipe everything
+        f.write(
+            str(OBD.warning.RPM) + "\n" +
+            str(OBD.warning.Speed) + "\n" +
+            str(OBD.warning.CoolantTemp) + "\n" +
+            str(OBD.warning.IntakeTemp) + "\n" +
+            str(OBD.warning.LTFT) + "\n" +
+            str(OBD.warning.STFT) + "\n" +
+            str(OBD.warning.CatTemp) + "\n" +
+            sys.TempUnit + "\n" +
+            sys.SpeedUnit
+        )
+        f.close()
+
 class OBD:
     Connected = 0  # connection is off by default - will be turned on in setup thread
     RPM_max = 0    # init all values to 0
@@ -159,8 +177,8 @@ class OBD:
     class enable:  # used to turn on and off OBD cmds to speed up communication
         RPM = 0
         Speed = 0
-        CoolantTemp = 1
-        IntakeTemp = 1
+        CoolantTemp = 1  # On Start-Up Screen
+        IntakeTemp = 1  # On Start-Up Screen
         IntakePressure = 0
         Load = 0
         ThrottlePos = 0
@@ -172,9 +190,9 @@ class OBD:
         FuelLevel = 0
         WarmUpsSinceDTC = 0
         DistanceSinceDTC = 0
-        CatTemp = 1
+        CatTemp = 1  # On Start-Up Screen
 
-    class warning:  # used to show RED warning highlight when certain value is reached, these will be read from savefile
+    class warning:  # used to show warning when value is met, these will be read from savefile
         RPM = 0
         Speed = 0
         CoolantTemp = 0
@@ -183,9 +201,9 @@ class OBD:
         STFT = 0
         CatTemp = 0
 
-    class gauge:
+    class gauge:  # Vars for S2K gauge GUI
         class image:  # images to be used for S2K style gauges
-            CoolantTemp = 'data/gauges/normal/S2K_0.png'
+            CoolantTemp = "data/gauges/normal/S2K_0.png"
             IntakeTemp = "data/gauges/normal/S2K_0.png"
             CatTemp = "data/gauges/normal/S2K_0.png"
             STFT = "data/gauges/split/S2K_0.png"
@@ -193,6 +211,7 @@ class OBD:
             ThrottlePos = "data/gauges/normal/S2K_0.png"
             Load = "data/gauges/normal/S2K_0.png"
             TimingAdv = "data/gauges/normal/S2K_0.png"
+
         class persegment:
             # Max values for each S2K Bar Gauge
             CoolantTemp_max = 300
@@ -224,10 +243,11 @@ class OBD:
             os.system('sudo rfcomm bind /dev/rfcomm1 00:1D:A5:03:43:DF')  # S2K Blue Adapter
             # os.system('sudo rfcomm bind /dev/rfcomm1 00:17:E9:60:7C:BC')  # Hondata
             # os.system('sudo rfcomm bind /dev/rfcomm1 00:04:3E:4B:07:66') #Green LXLink
+            print("Bluetooth Connected")
         except:
-            print ("Failed to initialize OBDII - OBDII device may already be connected.")
+            print ("Failed to initialize OBDII - device may already be connected.")
         time.sleep(2)
-        print ("Bluetooth Connected")
+        print("Bluetooth Connected")
         try:
             OBD.connection = obd.OBD()  # auto-connects to USB or RF port
             OBD.cmd_RPM = obd.commands.RPM
@@ -245,7 +265,7 @@ class OBD:
             OBD.cmd_FuelLevel = obd.commands.FUEL_LEVEL
             OBD.cmd_WarmUpsSinceDTC = obd.commands.WARMUPS_SINCE_DTC_CLEAR
             OBD.cmd_DistanceSinceDTC = obd.commands.DISTANCE_SINCE_DTC_CLEAR
-            #OBD.cmd_CatTemp = obd.commands.CATALYST_TEMP_B1S1
+            OBD.cmd_CatTemp = obd.commands.ELM_VOLTAGE
             OBD.Connected = 1
             print ("OBD System is Ready")
         except:
@@ -254,193 +274,200 @@ class OBD:
     def OBD_update_thread(self):
         while OBD.Connected == 0: # wait here while OBD system initializes
             pass
-        while OBDPresent == 1 and OBD.Connected == 1:
-            if OBD.enable.Speed == 1:
+        while OBDPresent and OBD.Connected:
+            if OBD.enable.Speed:
                 try:
                     response_SPEED = OBD.connection.query(OBD.cmd_Speed)  # send the command, and parse the response
                     if str(response_SPEED.value.magnitude) != 'None':  # only proceed if string value is not None
                         try:
-                            OBD.Speed = math.floor((int(response_SPEED.value.magnitude)) * 0.6213711922)  # convert kph to mph and set int value
-                            if OBD.Speed > OBD.Speed_max:
+                            OBD.Speed = math.floor(int(response_SPEED.value.magnitude))  # Set int value
+                            if sys.SpeedUnit == "MPH":  # change units if necessary
+                                OBD.Speed = OBD.Speed * 0.6213711922
+                            if OBD.Speed > OBD.Speed_max:  # set MAX variable if higher
                                 OBD.Speed_max = OBD.Speed
                         except:
-                            print ("OBD Error - Speed")
+                            print("OBD Value Error - Speed")
                 except:
-                    print ("Could not get OBD speed")
+                    print("Could not get OBD Response - Speed")
 
-            if OBD.enable.RPM == 1:
+            if OBD.enable.RPM:
                 try:
-                    response_RPM = OBD.connection.query(OBD.cmd_RPM)  # send the command, and parse the response
-                    if str(response_RPM.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_RPM = OBD.connection.query(OBD.cmd_RPM)
+                    if str(response_RPM.value.magnitude) != 'None':
                         try:
-                            OBD.RPM = math.floor(int(response_RPM.value.magnitude))  # set int value
+                            OBD.RPM = math.floor(int(response_RPM.value.magnitude))
                             if OBD.RPM > OBD.RPM_max:
                                 OBD.RPM_max = OBD.RPM
                         except:
-                            print ("OBD Value Error - RPM")
+                            print("OBD Value Error - RPM")
                 except:
-                    print ("Could not get OBD RPM")
+                    print("Could not get OBD Response - RPM")
 
-
-            if OBD.enable.CoolantTemp == 1:
+            if OBD.enable.CoolantTemp:
                 try:
-                    response_CoolantTemp = OBD.connection.query(OBD.cmd_CoolantTemp)  # send the command, and parse the response
-                    if str(response_CoolantTemp.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_CoolantTemp = OBD.connection.query(OBD.cmd_CoolantTemp)
+                    if str(response_CoolantTemp.value.magnitude) != 'None':
                         try:
-                            OBD.CoolantTemp = math.floor(int(response_CoolantTemp.value.magnitude) * 9.0 / 5.0 + 32.0)  # convert C to F and set int value
+                            OBD.CoolantTemp = math.floor(int(response_CoolantTemp.value.magnitude))
+                            if sys.TempUnit == "F":
+                                OBD.CoolantTemp = OBD.CoolantTemp * 9.0 / 5.0 + 32.0
                             if OBD.CoolantTemp < 140:  # used to make screen look better (reduce size of Coolant bar)
                                 OBD.CoolantTemp_ForBar = 0
                             else:
                                 OBD.CoolantTemp_ForBar = OBD.CoolantTemp - 140
                         except:
-                            print ("OBD Value Error - Coolant Temp")
+                            print("OBD Value Error - Coolant Temp")
                 except:
-                    print ("Could not get OBD Coolant Temp")
+                    print("Could not get OBD Response - Coolant Temp")
 
-            if OBD.enable.IntakeTemp == 1:
+            if OBD.enable.IntakeTemp:
                 try:
-                    response_IntakeTemp = OBD.connection.query(OBD.cmd_IntakeTemp)  # send the command, and parse the response
-                    if str(response_IntakeTemp.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_IntakeTemp = OBD.connection.query(OBD.cmd_IntakeTemp)
+                    if str(response_IntakeTemp.value.magnitude) != 'None':
                         try:
-                            OBD.IntakeTemp = math.floor(int(response_IntakeTemp.value.magnitude) * 9.0 / 5.0 + 32.0)  # convert C to F and set int value
+                            OBD.IntakeTemp = math.floor(int(response_IntakeTemp.value.magnitude))
+                            if sys.TempUnit == "F":
+                                OBD.IntakeTemp = OBD.IntakeTemp * 9.0 / 5.0 + 32.0
                         except:
-                            print ("OBD Value Error - Intake Temp")
+                            print("OBD Value Error - Intake Temp")
                 except:
-                    print ("Could not get OBD Intake Temp")
+                    print("Could not get OBD Response - Intake Temp")
 
-            if OBD.enable.IntakePressure == 1:
+            if OBD.enable.IntakePressure:
                 try:
-                    response_IntakePressure = OBD.connection.query(OBD.cmd_IntakePressure)  # send the command, and parse the response
-                    if str(response_IntakePressure.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_IntakePressure = OBD.connection.query(OBD.cmd_IntakePressure)
+                    if str(response_IntakePressure.value.magnitude) != 'None':
                         try:
-                            OBD.IntakePressure = math.floor(int(response_IntakePressure.value.magnitude))  # set int value
+                            OBD.IntakePressure = math.floor(int(response_IntakePressure.value.magnitude))  # kPa
                         except:
-                            print ("OBD Value Error - Intake Press")
+                            print("OBD Value Error - Intake Press")
                 except:
-                    print ("Could not get OBD Intake Pressure")
+                    print("Could not get OBD Response - Intake Pressure")
 
-            if OBD.enable.ThrottlePos == 1:
+            if OBD.enable.ThrottlePos:
                 try:
-                    response_ThrottlePos = OBD.connection.query(OBD.cmd_ThrottlePos)  # send the command, and parse the response
-                    if str(response_ThrottlePos.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_ThrottlePos = OBD.connection.query(OBD.cmd_ThrottlePos)
+                    if str(response_ThrottlePos.value.magnitude) != 'None':
                         try:
-                            OBD.ThrottlePos = math.floor(int(response_ThrottlePos.value.magnitude))  # set int value
+                            OBD.ThrottlePos = math.floor(int(response_ThrottlePos.value.magnitude))
                         except:
-                            print ("OBD Value Error - Throttle Position")
+                            print("OBD Value Error - Throttle Position")
                 except:
-                    print ("Could not get OBD Throttle Position")
+                    print("Could not get OBD Response - Throttle Position")
 
-            if OBD.enable.Load == 1:
+            if OBD.enable.Load:
                 try:
-                    response_Load = OBD.connection.query(OBD.cmd_Load)  # send the command, and parse the response
-                    if str(response_Load.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_Load = OBD.connection.query(OBD.cmd_Load)
+                    if str(response_Load.value.magnitude) != 'None':
                         try:
-                            OBD.Load = math.floor(int(response_Load.value.magnitude))  # set int value
+                            OBD.Load = math.floor(int(response_Load.value.magnitude))
                         except:
-                            print ("OBD Value Error - Load")
+                            print("OBD Value Error - Load")
                 except:
-                    print ("Could not get OBD Load")
+                    print("Could not get OBD Response - Load")
 
-            if OBD.enable.LTFT == 1:
+            if OBD.enable.LTFT:
                 try:
-                    response_LTFT = OBD.connection.query(OBD.cmd_LTFT)  # send the command, and parse the response
-                    if str(response_LTFT.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_LTFT = OBD.connection.query(OBD.cmd_LTFT)
+                    if str(response_LTFT.value.magnitude) != 'None':
                         try:
-                            OBD.LTFT = math.floor(int(response_LTFT.value.magnitude))  # set int value
+                            OBD.LTFT = math.floor(int(response_LTFT.value.magnitude))
                         except:
-                            print ("OBD Value Error - LTFT")
+                            print("OBD Value Error - LTFT")
                 except:
-                    print ("Could not get OBD LTFT")
+                    print("Could not get OBD Response - LTFT")
 
-            if OBD.enable.STFT == 1:
+            if OBD.enable.STFT:
                 try:
-                    response_STFT = OBD.connection.query(OBD.cmd_STFT)  # send the command, and parse the response
-                    if str(response_STFT.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_STFT = OBD.connection.query(OBD.cmd_STFT)
+                    if str(response_STFT.value.magnitude) != 'None':
                         try:
-                            OBD.STFT = math.floor(int(response_STFT.value.magnitude))  # set int value
+                            OBD.STFT = math.floor(int(response_STFT.value.magnitude))
                         except:
-                            print ("OBD Value Error - STFT")
+                            print("OBD Value Error - STFT")
                 except:
-                    print ("Could not get OBD STFT")
+                    print("Could not get OBD Response - STFT")
 
-            if OBD.enable.TimingAdv == 1:
+            if OBD.enable.TimingAdv:
                 try:
-                    response_TimingAdv = OBD.connection.query(OBD.cmd_TimingAdv)  # send the command, and parse the response
-                    if str(response_TimingAdv.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_TimingAdv = OBD.connection.query(OBD.cmd_TimingAdv)
+                    if str(response_TimingAdv.value.magnitude) != 'None':
                         try:
-                            OBD.TimingAdv = math.floor(int(response_TimingAdv.value.magnitude))  # set int value
+                            OBD.TimingAdv = math.floor(int(response_TimingAdv.value.magnitude))
                         except:
-                            print ("OBD Value Error - Timing Advance")
+                            print("OBD Value Error - Timing Advance")
                 except:
-                    print ("Could not get OBD Timing Advance")
+                    print("Could not get OBD Response - Timing Advance")
 
-            if OBD.enable.MAF == 1:
+            if OBD.enable.MAF:
                 try:
-                    response_MAF = OBD.connection.query(OBD.cmd_MAF)  # send the command, and parse the response
-                    if str(response_MAF.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_MAF = OBD.connection.query(OBD.cmd_MAF)
+                    if str(response_MAF.value.magnitude) != 'None':
                         try:
-                            OBD.MAF = math.floor(int(response_MAF.value.magnitude))  # set int value
+                            OBD.MAF = math.floor(int(response_MAF.value.magnitude))  # grams/sec
                         except:
-                            print ("OBD Value Error - MAF")
+                            print("OBD Value Error - MAF")
                 except:
-                    print ("Could not get OBD MAF")
+                    print("Could not get OBD Response - MAF")
 
-            if OBD.enable.RunTime == 1:
+            if OBD.enable.RunTime:
                 try:
-                    response_RunTime = OBD.connection.query(OBD.cmd_RunTime)  # send the command, and parse the response
-                    if str(response_RunTime.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_RunTime = OBD.connection.query(OBD.cmd_RunTime)
+                    if str(response_RunTime.value.magnitude) != 'None':
                         try:
-                            OBD.RunTime = math.floor(int(response_RunTime.value.magnitude)/60)  # change to minutes
+                            OBD.RunTime = math.floor(int(response_RunTime.value.magnitude))  # Minutes
                         except:
-                            print ("OBD Value Error - RunTime")
+                            print("OBD Value Error - RunTime")
                 except:
-                    print ("Could not get OBD RunTime")
+                    print("Could not get OBD Response - RunTime")
 
-            if OBD.enable.FuelLevel == 1:
+            if OBD.enable.FuelLevel:
                 try:
-                    response_FuelLevel = OBD.connection.query(OBD.cmd_FuelLevel)  # send the command, and parse the response
-                    if str(response_FuelLevel.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_FuelLevel = OBD.connection.query(OBD.cmd_FuelLevel)
+                    if str(response_FuelLevel.value.magnitude) != 'None':
                         try:
-                            OBD.FuelLevel = math.floor(int(response_FuelLevel.value.magnitude))  # set int value
+                            OBD.FuelLevel = math.floor(int(response_FuelLevel.value.magnitude))
                         except:
-                            print ("OBD Value Error - Fuel Level")
+                            print("OBD Value Error - Fuel Level")
                 except:
-                    print ("Could not get OBD Fuel Level")
+                    print("Could not get OBD Response - Fuel Level")
 
-            if OBD.enable.WarmUpsSinceDTC == 1:
+            if OBD.enable.WarmUpsSinceDTC:
                 try:
-                    response_WarmUpsSinceDTC = OBD.connection.query(OBD.cmd_WarmUpsSinceDTC)  # send the command, and parse the response
-                    if str(response_WarmUpsSinceDTC.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_WarmUpsSinceDTC = OBD.connection.query(OBD.cmd_WarmUpsSinceDTC)
+                    if str(response_WarmUpsSinceDTC.value.magnitude) != 'None':
                         try:
-                            OBD.WarmUpsSinceDTC = math.floor(int(response_WarmUpsSinceDTC.value.magnitude))  # set int value
+                            OBD.WarmUpsSinceDTC = math.floor(int(response_WarmUpsSinceDTC.value.magnitude))
                         except:
-                            print ("OBD Value Error - Warm Ups Since DTC")
+                            print("OBD Value Error - Warm Ups Since DTC")
                 except:
-                    print ("Could not get OBD Warm Ups Since DTC")
+                    print("Could not get OBD Response - Warm Ups Since DTC")
 
-            if OBD.enable.DistanceSinceDTC == 1:
+            if OBD.enable.DistanceSinceDTC:
                 try:
-                    response_DistanceSinceDTC = OBD.connection.query(OBD.cmd_DistanceSinceDTC)  # send the command, and parse the response
-                    if str(response_DistanceSinceDTC.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_DistanceSinceDTC = OBD.connection.query(OBD.cmd_DistanceSinceDTC)
+                    if str(response_DistanceSinceDTC.value.magnitude) != 'None':
                         try:
-                            OBD.DistanceSinceDTC = math.floor((int(response_DistanceSinceDTC.value.magnitude)) * 0.6213711922)  # convert k to m and set int value
+                            OBD.DistanceSinceDTC = math.floor(int(response_DistanceSinceDTC.value.magnitude))
+                            if sys.SpeedUnit == "MPH":
+                                OBD.DistanceSinceDTC = OBD.DistanceSinceDTC * 0.6213711922
                         except:
-                            print ("OBD Value Error - Distance Since DTC")
+                            print("OBD Value Error - Distance Since DTC")
                 except:
-                    print ("Could not get OBD Distance Since DTC")
+                    print("Could not get OBD Response - Distance Since DTC")
 
-            if OBD.enable.CatTemp == 3:
+            if OBD.enable.CatTemp:
                 try:
-                    response_CatTemp = OBD.connection.query(OBD.cmd_CatTemp)  # send the command, and parse the response
-                    if str(response_CatTemp.value.magnitude) != 'None':  # only proceed if string value is not None
+                    response_CatTemp = OBD.connection.query(OBD.cmd_CatTemp)
+                    if str(response_CatTemp.value.magnitude) != 'None':
                         try:
-                            OBD.CatTemp = math.floor(int(response_CatTemp.value.magnitude) * 9.0 / 5.0 + 32.0)  # convert C to F and set int value
+                            OBD.CatTemp = math.floor(int(response_CatTemp.value.magnitude))
+                            if sys.TempUnit == "F":
+                                OBD.CatTemp = OBD.CatTemp * 9.0 / 5.0 + 32.0
                         except:
-                            print ("OBD Value Error - Cat Temp")
+                            print("OBD Value Error - Cat Temp")
                 except:
-                    print ("Could not get OBD Cat Temp")
-
-            #time.sleep(.1)  # should I keep this?
+                    print("Could not get OBD Response - Cat Temp")
 
     def start_threads(self):
         OBDSetupThread = threading.Thread(name='obd_setup_thread', target=self.OBD_setup_thread)
@@ -452,25 +479,19 @@ if OBDPresent == 1:
     OBD().start_threads()
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------
-# Save/Load data functions
-def loaddata():
-    f = open('savedata.txt', 'r+')  # read from text file
-    OBD.warning.RPM = int(f.readline())
-    OBD.warning.Speed = int(f.readline())
-    OBD.warning.CoolantTemp = int(f.readline())
-    OBD.warning.IntakeTemp = int(f.readline())
-    OBD.warning.LTFT = int(f.readline())
-    OBD.warning.STFT = int(f.readline())
-    OBD.warning.CatTemp = int(f.readline())
-    f.close()
+# A few initial functions to run for setup
+sys().loaddata()
 
-def savedata():
-    f = open('savedata.txt', 'r+')
-    f.truncate()  # wipe everything
-    f.write(str(OBD.warning.RPM) + "\n" + str(OBD.warning.Speed) + "\n" + str(OBD.warning.CoolantTemp) + "\n" + str(OBD.warning.IntakeTemp) + "\n" + str(OBD.warning.LTFT) + "\n" + str(OBD.warning.STFT) + "\n" + str(OBD.warning.CatTemp))
-    f.close()
+if developermode == 0:
+    if autobrightness == 1:
+        currenthour = int(time.strftime("%-H"))  # hour as decimal (24hour)
+        if currenthour < 7 or currenthour >= 20:  # earlier than 7am and later than 6pm -> dim screen on start
+            sys().setbrightness(15)
+        else:
+            sys().setbrightness(255)
 
-loaddata()
+    if autobrightness == 2:  # start on dim every time
+        sys().setbrightness(15)
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 # Define Kivy Classes
@@ -487,9 +508,9 @@ class MaxScreen(Screen):
     pass
 class InfoScreen(Screen):
     def on_enter(self):
-        sys.allowinfoflag = True
+        sys.getsysteminfo = True
     def on_pre_leave(self):
-        sys.allowinfoflag = False
+        sys.getsysteminfo = False
     # pass
 class SettingsScreen(Screen):
     pass
@@ -590,7 +611,7 @@ class MainApp(App):
         self.WifiNetwork = sys.ssid
         self.CPUVolts = sys.CPUVolts
         self.CPUTemp = sys.CPUTemp
-        if sys.allowinfoflag == True:
+        if sys.getsysteminfo == True:
             self.get_CPU_info()
             self.get_IP()
 
@@ -622,9 +643,9 @@ class MainApp(App):
         if OBD.Connected == 0 and developermode == 1:
             #Speedo Dev Code
             if OBD.dev.Speed_inc == 1:
-                OBD.dev.Speed = OBD.dev.Speed + 1.0
+                OBD.dev.Speed = OBD.dev.Speed + 1
             else:
-                OBD.dev.Speed = OBD.dev.Speed - 1.0
+                OBD.dev.Speed = OBD.dev.Speed - 1
             if OBD.dev.Speed > 150:
                 OBD.dev.Speed_inc = 0
             if OBD.dev.Speed < 1:
@@ -637,9 +658,9 @@ class MainApp(App):
 
             #Tach Dev Code
             if OBD.dev.RPM_inc == 1:
-                OBD.dev.RPM = OBD.dev.RPM + 10.0
+                OBD.dev.RPM = OBD.dev.RPM + 10
             else:
-                OBD.dev.RPM = OBD.dev.RPM - 10.0
+                OBD.dev.RPM = OBD.dev.RPM - 10
             if OBD.dev.RPM > 9100:
                 OBD.dev.RPM_inc = 0
             if OBD.dev.RPM < 100:
@@ -651,9 +672,9 @@ class MainApp(App):
 
             #Coolant Dev Code
             if OBD.dev.CoolantTemp_inc == 1:
-                OBD.dev.CoolantTemp = OBD.dev.CoolantTemp + 1.0
+                OBD.dev.CoolantTemp = OBD.dev.CoolantTemp + 1
             else:
-                OBD.dev.CoolantTemp = OBD.dev.CoolantTemp - 1.0
+                OBD.dev.CoolantTemp = OBD.dev.CoolantTemp - 1
             if OBD.dev.CoolantTemp > 250:
                 OBD.dev.CoolantTemp_inc = 0
             if OBD.dev.CoolantTemp < 1:
@@ -667,9 +688,9 @@ class MainApp(App):
 
             # FuelTrim Dev Code
             if OBD.dev.FuelTrim_inc == 1:
-                OBD.dev.FuelTrim = OBD.dev.FuelTrim + 1.0
+                OBD.dev.FuelTrim = OBD.dev.FuelTrim + 1
             else:
-                OBD.dev.FuelTrim = OBD.dev.FuelTrim - 1.0
+                OBD.dev.FuelTrim = OBD.dev.FuelTrim - 1
             if OBD.dev.FuelTrim > 35:
                 OBD.dev.FuelTrim_inc = 0
             if OBD.dev.FuelTrim < -24:
@@ -679,9 +700,9 @@ class MainApp(App):
 
             #Generic Dev Code
             if OBD.dev.Generic_inc == 1:
-                OBD.dev.Generic = OBD.dev.Generic + 1.00
+                OBD.dev.Generic = OBD.dev.Generic + 1
             else:
-                OBD.dev.Generic = OBD.dev.Generic - 1.00
+                OBD.dev.Generic = OBD.dev.Generic - 1
             if OBD.dev.Generic > 99:
                 OBD.dev.Generic_inc = 0
             if OBD.dev.Generic < 10:
@@ -720,7 +741,7 @@ class MainApp(App):
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 # Scheduling Functions
     def save(obj):
-        savedata() # save new varibles for next boot
+        sys().savedata() # save new varibles for next boot
 
     def shutdown(obj):
         os.system("sudo shutdown -h now")
