@@ -1,8 +1,12 @@
 #:import Animation kivy.animation.Animation
 #:import MDProgressBar kivymd.progressbar.MDProgressBar
 #:import MDSlider kivymd.slider.MDSlider
+#:import MDList kivymd.list.MDList
+#:import MDButton kivymd.button.MDRaisedButton
 
-#V1.0.0
+#:import math math
+
+#V1.2.1
 
 # Set Global Font Types to save typing later
 #:set GaugeFont "data/fonts/Eurostile LT Std Medium.ttf"
@@ -12,7 +16,6 @@
 #:set Dock_y0 160
 
 AnchorLayout:
-    sm: sm
     ScreenManager:
         id: sm
         Gauge1Screen:
@@ -70,22 +73,14 @@ AnchorLayout:
                     nocache: True
 
                 Image:
-                    source: "data/gauges/warning/WarningRed.png"
-                    opacity: 1 if app.CatTemp > app.CatTempWarn else 0
-                    pos: 550, 250
-                    size_hint: None, None
-                    height: 250
-                    width: 250
-
-                Image:
-                    source: "data/gauges/S2K_Cat.png"
+                    source: "data/gauges/S2K_Battery.png"
                     opacity: 1
                     pos: 550, 350
                     size_hint: None, None
                     height: 150
                     width: 250
                 Image:
-                    source: str(app.CatTemp_Image)
+                    source: str(app.Voltage_Image)
                     opacity: 1
                     pos: 550, 350
                     size_hint: None, None
@@ -94,7 +89,9 @@ AnchorLayout:
                     nocache: True
 
                 Label:
-                    text: (str(app.CoolantTemp)) + u'\N{DEGREE SIGN}'
+                    text:
+                        (str(math.floor(app.CoolantTemp))) + u'\N{DEGREE SIGN}' if app.TempUnit == "F" \
+                        else (str(math.floor((app.CoolantTemp-32)*(5/9)))) + u'\N{DEGREE SIGN}'
                     font_size: 70
                     size_hint: None, None
                     height: 150
@@ -105,7 +102,9 @@ AnchorLayout:
                     pos: 0, 230
                     font_name: GaugeFont
                 Label:
-                    text: (str(app.IntakeTemp)) + u'\N{DEGREE SIGN}'
+                    text:
+                        (str(math.floor(app.IntakeTemp))) + u'\N{DEGREE SIGN}' if app.TempUnit == "F" \
+                        else (str(math.floor((app.IntakeTemp-32)*(5/9)))) + u'\N{DEGREE SIGN}'
                     font_size: 70
                     size_hint: None, None
                     height: 150
@@ -116,7 +115,7 @@ AnchorLayout:
                     pos: 275, 230
                     font_name: GaugeFont
                 Label:
-                    text: (str(app.CatTemp)) + u'\N{DEGREE SIGN}'
+                    text: (str(app.Voltage)) + "v"
                     font_size: 70
                     size_hint: None, None
                     height: 150
@@ -203,7 +202,9 @@ AnchorLayout:
                     width: 250
 
                 Label:
-                    text: (str(app.CoolantTemp)) + u'\N{DEGREE SIGN}'
+                    text:
+                        (str(math.floor(app.CoolantTemp))) + u'\N{DEGREE SIGN}' if app.TempUnit == "F" \
+                        else (str(math.floor((app.CoolantTemp-32)*(5/9)))) + u'\N{DEGREE SIGN}'
                     font_size: 70
                     size_hint: None, None
                     height: 150
@@ -343,6 +344,51 @@ AnchorLayout:
             FloatLayout:
                 Image:
                     source: "data/wallpapers/black.png"
+                Label:
+                    text:
+                        str(math.floor(app.Speed)) if app.SpeedUnit == "MPH" \
+                        else str(math.floor(app.Speed / 0.6213711922))
+                    text_size: 300, 100
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 80
+                    pos: -270, 170
+                    font_name: GaugeFont
+                Label:
+                    text: str(app.RPM)
+                    text_size: 300, 100
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 80
+                    pos: -270, 60
+                    font_name: GaugeFont
+                Label:
+                    text: app.SpeedUnit
+                    text_size: 300, 100
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 15
+                    pos: -230, 153
+                    font_name: GaugeFont
+                Label:
+                    text: "RPM"
+                    text_size: 300, 100
+                    halign: 'right'
+                    valign: 'middle'
+                    font_size: 15
+                    pos: -230, 43
+                    font_name: GaugeFont
+                Label:
+                    text: app.currentgear
+                    font_size: 200
+                    size_hint: None, None
+                    height: 150
+                    width: 250
+                    halign: 'center'
+                    valign: 'middle'
+                    font_hinting: None
+                    pos: 550, 262
+                    font_name: GaugeFont
 
         MaxScreen:
             name: "max"
@@ -350,7 +396,9 @@ AnchorLayout:
                 Image:
                     source: "data/wallpapers/MaxScreen.png"
                 Label:
-                    text: (str(app.Speed))
+                    text:
+                        str(math.floor(app.Speed)) if app.SpeedUnit == "MPH" \
+                        else str(math.floor(app.Speed / 0.6213711922))
                     text_size: 300, 100
                     halign: 'right'
                     valign: 'middle'
@@ -358,7 +406,7 @@ AnchorLayout:
                     pos: -270, 190
                     font_name: GaugeFont
                 Label:
-                    text: (str(app.RPM))
+                    text: str(app.RPM)
                     text_size: 300, 100
                     halign: 'right'
                     valign: 'middle'
@@ -366,7 +414,7 @@ AnchorLayout:
                     pos: -270, 80
                     font_name: GaugeFont
                 Label:
-                    text: "MPH"
+                    text: app.SpeedUnit
                     text_size: 300, 100
                     halign: 'right'
                     valign: 'middle'
@@ -383,7 +431,9 @@ AnchorLayout:
                     font_name: GaugeFont
 
                 Label:
-                    text: (str(app.Speed_max))
+                    text:
+                        str(math.floor(app.Speed_max)) if app.SpeedUnit == "MPH" \
+                        else str(math.floor(app.Speed_max / 0.6213711922))
                     text_size: 300, 100
                     halign: 'right'
                     valign: 'middle'
@@ -391,7 +441,7 @@ AnchorLayout:
                     pos: 170, 190
                     font_name: GaugeFont
                 Label:
-                    text: (str(app.RPM_max))
+                    text: str(app.RPM_max)
                     text_size: 300, 100
                     halign: 'right'
                     valign: 'middle'
@@ -399,7 +449,7 @@ AnchorLayout:
                     pos: 170, 80
                     font_name: GaugeFont
                 Label:
-                    text: "MPH"
+                    text: app.SpeedUnit
                     text_size: 300, 100
                     halign: 'right'
                     valign: 'middle'
@@ -447,7 +497,7 @@ AnchorLayout:
             name: "info"
             FloatLayout:
                 Image:
-                    source: "data/wallpapers/CarInfo.png"
+                    source: "data/wallpapers/black.png"
 
                 Label:
                     text: "SSID: " + app.WifiNetwork
@@ -466,7 +516,9 @@ AnchorLayout:
                     pos: -250, 183
                     font_name: GaugeFont
                 Label:
-                    text: "CPU Temp: " + str(app.CPUTemp) + u'\N{DEGREE SIGN}' + "C"
+                    text:
+                        "CPU Temp: " + str(app.CPUTemp) + u'\N{DEGREE SIGN}' + "C" if app.TempUnit == "C" \
+                        else "CPU Temp: " + str(math.floor(app.CPUTemp*9/5+32)) + u'\N{DEGREE SIGN}' + "F"
                     text_size: 280, 50
                     halign: 'left'
                     valign: 'middle'
@@ -482,86 +534,13 @@ AnchorLayout:
                     font_size: 20
                     pos: -250, 123
                     font_name: GaugeFont
-
-                Image:
-                    source: 'data/elements/InfoIcons/timer.png'
-                    size: 50, 50
-                    pos: 20, 215
-                Image:
-                    source: 'data/elements/InfoIcons/counter.png'
-                    size: 50, 50
-                    pos: 20, 165
-                Image:
-                    source: 'data/elements/InfoIcons/distance.png'
-                    size: 50, 50
-                    pos: 20, 115
-                Image:
-                    source: 'data/elements/InfoIcons/gas.png'
-                    size: 50, 50
-                    pos: 20, 65
                 Label:
-                    text: "Current Cycle Minutes:"
+                    text: "DRDS Version: " + str(app.version)
                     text_size: 280, 50
-                    halign: 'right'
-                    valign: 'middle'
-                    font_size: 20
-                    pos: 150, 213
-                    font_name: GaugeFont
-                Label:
-                    text: "Cycles Since Reset:"
-                    text_size: 280, 50
-                    halign: 'right'
-                    valign: 'middle'
-                    font_size: 20
-                    pos: 150, 163
-                    font_name: GaugeFont
-                Label:
-                    text: "Miles Since Reset:"
-                    text_size: 280, 50
-                    halign: 'right'
-                    valign: 'middle'
-                    font_size: 20
-                    pos: 150, 113
-                    font_name: GaugeFont
-                Label:
-                    text: "Gallons Remaining:"
-                    text_size: 280, 50
-                    halign: 'right'
-                    valign: 'middle'
-                    font_size: 20
-                    pos: 150, 63
-                    font_name: GaugeFont
-                Label:
-                    text: (str(app.RunTime)).strip()[:-2]
-                    pos: 350, 213
-                    font_size: 30
-                    text_size: 100, 50
                     halign: 'left'
                     valign: 'middle'
-                    font_name: GaugeFont
-                Label:
-                    text: (str(app.WarmUpsSinceDTC)).strip()[:-2]
-                    pos: 350, 163
-                    font_size: 30
-                    text_size: 100, 50
-                    halign: 'left'
-                    valign: 'middle'
-                    font_name: GaugeFont
-                Label:
-                    text: (str(app.DistanceSinceDTC/1.60934)).strip()[:-9]
-                    pos: 350, 113
-                    font_size: 30
-                    text_size: 100, 50
-                    halign: 'left'
-                    valign: 'middle'
-                    font_name: GaugeFont
-                Label:
-                    text: (str(app.FuelLevel*13.2/100)).strip()[:-1]
-                    pos: 350, 63
-                    font_size: 30
-                    text_size: 100, 50
-                    halign: 'left'
-                    valign: 'middle'
+                    font_size: 20
+                    pos: -250, 93
                     font_name: GaugeFont
 
 
@@ -587,6 +566,9 @@ AnchorLayout:
                     size_hint: None, None
                     height: 100
                     width: 100
+                    on_press:
+                        app.OBDOFF()
+                        app.initOBD()
                 Button:
                     background_normal: 'data/elements/Apps/CEL.png'
                     background_down: 'data/elements/Apps/CEL_pressed.png'
@@ -595,6 +577,28 @@ AnchorLayout:
                     size_hint: None, None
                     height: 100
                     width: 100
+                    on_press:
+                        app.OBDOFF()
+                        sm.transition.direction = 'left'
+                        sm.current = 'DTC'
+                Button:
+                    background_normal: 'data/elements/Apps/C.png' if app.TempUnit == "C" else 'data/elements/Apps/F.png'
+                    background_down: 'data/elements/Apps/C_pressed.png' if app.TempUnit == "C" else 'data/elements/Apps/F_pressed.png'
+                    opacity: 1
+                    pos: 300, 380
+                    size_hint: None, None
+                    height: 100
+                    width: 100
+                    on_release: app.toggleTempUnit()
+                Button:
+                    background_normal: 'data/elements/Apps/KPH.png' if app.SpeedUnit == 'KPH' else 'data/elements/Apps/MPH.png'
+                    background_down: 'data/elements/Apps/KPH_pressed.png' if app.SpeedUnit == 'KPH' else 'data/elements/Apps/MPH_pressed.png'
+                    opacity: 1
+                    pos: 400, 380
+                    size_hint: None, None
+                    height: 100
+                    width: 100
+                    on_release: app.toggleSpeedUnit()
 
                 Button:
                     background_normal: 'data/elements/Settings/Reboot.png'
@@ -663,7 +667,9 @@ AnchorLayout:
                     height: 50
                     width: 500
                 Label:
-                    text: str(app.CoolantTempWarn) + u'\N{DEGREE SIGN}'
+                    text:
+                        (str(app.CoolantTempWarn)) + u'\N{DEGREE SIGN}' if app.TempUnit == "F" \
+                        else (str(math.floor((app.CoolantTempWarn-32)*(5/9)))) + u'\N{DEGREE SIGN}'
                     font_size: 30
                     pos: -210, 190
                     text_size: 100, 50
@@ -685,7 +691,9 @@ AnchorLayout:
                     height: 50
                     width: 500
                 Label:
-                    text: str(app.IntakeTempWarn) + u'\N{DEGREE SIGN}'
+                    text:
+                        (str(app.IntakeTempWarn)) + u'\N{DEGREE SIGN}' if app.TempUnit == "F" \
+                        else (str(math.floor((app.IntakeTempWarn-32)*(5/9)))) + u'\N{DEGREE SIGN}'
                     font_size: 30
                     pos: -210, 120
                     text_size: 100, 50
@@ -694,28 +702,6 @@ AnchorLayout:
                 Image:
                     source: 'data/gauges/icons/Intake.png'
                     pos: 80, 320
-                    size_hint: None, None
-                    height: 70
-                    width: 70
-                MDSlider:
-                    pos: 230, 260
-                    min: 0
-                    max: app.CatTempGaugeMax
-                    value: app.CatTempWarn
-                    on_value: app.CatTempWarnSlider(*args)
-                    size_hint: None, None
-                    height: 50
-                    width: 500
-                Label:
-                    text: str(app.CatTempWarn) + u'\N{DEGREE SIGN}'
-                    font_size: 30
-                    pos: -210, 50
-                    text_size: 100, 50
-                    halign: 'right'
-                    font_name: GaugeFont
-                Image:
-                    source: 'data/gauges/icons/Cat.png'
-                    pos: 80, 250
                     size_hint: None, None
                     height: 70
                     width: 70
@@ -881,6 +867,167 @@ AnchorLayout:
                     height: 70
                     width: 70
 
+        DTCScreen:
+            name: "DTC"
+            FloatLayout:
+                Image:
+                    source: "data/wallpapers/black.png"
+
+                Button:
+                    background_normal: "data/elements/DTCIcons/ReadDTC.png"
+                    background_down: "data/elements/DTCIcons/ReadDTC_pressed.png"
+                    size_hint: None, None
+                    height: 100
+                    width: 100
+                    pos: 25, 365
+                    on_press: app.ReadDTC()
+                Button:
+                    background_normal: "data/elements/DTCIcons/ClearDTC.png"
+                    background_down: "data/elements/DTCIcons/ClearDTC_pressed.png"
+                    size_hint: None, None
+                    height: 100
+                    width: 100
+                    pos: 25, 265
+                    on_press: app.ClearDTC()
+
+                ScrollView:
+                    size_hint: None, None
+                    height: 300
+                    width: 650
+                    pos: 150, 180
+                    do_scroll_y: True
+                    GridLayout:  # Can handle 10 DTCs for now
+                        orientation: "vertical"
+                        size_hint_y: None
+                        height: self.minimum_height
+                        row_default_height: 50
+                        cols:1
+                        Button:
+                            background_normal: "data/elements/List/ListItem.png"
+                            background_down: "data/elements/List/ListItem.png"
+                            Label:
+                                text: app.DTC0
+                                text_size: 650, 50
+                                valign: 'middle'
+                                halign: 'left'
+                                font_size: 20
+                                font_name: GaugeFont
+                                pos: self.parent.center_x - 50, self.parent.center_y - 53
+                        Button:
+                            background_normal: "data/elements/List/ListItem.png"
+                            background_down: "data/elements/List/ListItem.png"
+                            Label:
+                                text: app.DTC1
+                                text_size: 650, 50
+                                valign: 'middle'
+                                halign: 'left'
+                                font_size: 20
+                                font_name: GaugeFont
+                                pos: self.parent.center_x - 50, self.parent.center_y - 53
+                        Button:
+                            background_normal: "data/elements/List/ListItem.png"
+                            background_down: "data/elements/List/ListItem.png"
+                            Label:
+                                text: app.DTC2
+                                text_size: 650, 50
+                                valign: 'middle'
+                                halign: 'left'
+                                font_size: 20
+                                font_name: GaugeFont
+                                pos: self.parent.center_x - 50, self.parent.center_y - 53
+                        Button:
+                            background_normal: "data/elements/List/ListItem.png"
+                            background_down: "data/elements/List/ListItem.png"
+                            Label:
+                                text: app.DTC3
+                                text_size: 650, 50
+                                valign: 'middle'
+                                halign: 'left'
+                                font_size: 20
+                                font_name: GaugeFont
+                                pos: self.parent.center_x - 50, self.parent.center_y - 53
+                        Button:
+                            background_normal: "data/elements/List/ListItem.png"
+                            background_down: "data/elements/List/ListItem.png"
+                            Label:
+                                text: app.DTC4
+                                text_size: 650, 50
+                                valign: 'middle'
+                                halign: 'left'
+                                font_size: 20
+                                font_name: GaugeFont
+                                pos: self.parent.center_x - 50, self.parent.center_y - 53
+                        Button:
+                            background_normal: "data/elements/List/ListItem.png"
+                            background_down: "data/elements/List/ListItem.png"
+                            Label:
+                                text: app.DTC5
+                                text_size: 650, 50
+                                valign: 'middle'
+                                halign: 'left'
+                                font_size: 20
+                                font_name: GaugeFont
+                                pos: self.parent.center_x - 50, self.parent.center_y - 53
+                        Button:
+                            background_normal: "data/elements/List/ListItem.png"
+                            background_down: "data/elements/List/ListItem.png"
+                            Label:
+                                text: app.DTC6
+                                text_size: 650, 50
+                                valign: 'middle'
+                                halign: 'left'
+                                font_size: 20
+                                font_name: GaugeFont
+                                pos: self.parent.center_x - 50, self.parent.center_y - 53
+                        Button:
+                            background_normal: "data/elements/List/ListItem.png"
+                            background_down: "data/elements/List/ListItem.png"
+                            Label:
+                                text: app.DTC7
+                                text_size: 650, 50
+                                valign: 'middle'
+                                halign: 'left'
+                                font_size: 20
+                                font_name: GaugeFont
+                                pos: self.parent.center_x - 50, self.parent.center_y - 53
+                        Button:
+                            background_normal: "data/elements/List/ListItem.png"
+                            background_down: "data/elements/List/ListItem.png"
+                            Label:
+                                text: app.DTC8
+                                text_size: 650, 50
+                                valign: 'middle'
+                                halign: 'left'
+                                font_size: 20
+                                font_name: GaugeFont
+                                pos: self.parent.center_x - 50, self.parent.center_y - 53
+                        Button:
+                            background_normal: "data/elements/List/ListItem.png"
+                            background_down: "data/elements/List/ListItem.png"
+                            Label:
+                                text: app.DTC9
+                                text_size: 650, 50
+                                valign: 'middle'
+                                halign: 'left'
+                                font_size: 20
+                                font_name: GaugeFont
+                                pos: self.parent.center_x - 50, self.parent.center_y - 53
+
+                Image:
+                    source: "data/elements/Gradient/gradient.png"
+                Label:
+                    text:
+                        (str(app.DTCqty) + " DTCs") if app.DTCqty > 1 \
+                        else (str(app.DTCqty) + " DTC") if app.DTCqty == 1 \
+                        else (("0 DTCs") if app.DTCqty == 0 \
+                        else "")
+                    text_size: 150, 50
+                    valign: 'middle'
+                    halign: 'center'
+                    font_size: 30
+                    font_name: GaugeFont
+                    pos: -325, 0
+
     AnchorLayout: #define the QUICKEYS area
         FloatLayout:
             Image:
@@ -1030,7 +1177,6 @@ AnchorLayout:
                 on_press: app.ScreenOnOff("OFF")
                 on_release: app.shutdown()
 
-
             Button:
                 id: dock_gauge1
                 background_normal: 'data/elements/Dock/DockPill.png'
@@ -1046,7 +1192,7 @@ AnchorLayout:
                     app.OBDOFF()
                     app.OBDEnabler("CoolantTemp",1)
                     app.OBDEnabler("IntakeTemp",1)
-                    app.OBDEnabler("CatTemp",1)
+                    app.OBDEnabler("Voltage",1)
                     app.save()
                 Label:
                     text: "1"
@@ -1124,6 +1270,9 @@ AnchorLayout:
                     sm.transition.direction = 'left'
                     sm.current = 'gauge4'
                     app.OBDOFF()
+                    app.OBDEnabler("Speed",1)
+                    app.OBDEnabler("RPM",1)
+                    app.OBDEnabler("Gear",1)
                     app.save()
                 Label:
                     text: "4"
@@ -1172,10 +1321,6 @@ AnchorLayout:
                     sm.transition.direction = 'left'
                     sm.current = 'info'
                     app.OBDOFF()
-                    app.OBDEnabler("RunTime",1)
-                    app.OBDEnabler("FuelLevel",1)
-                    app.OBDEnabler("WarmUpsSinceDTC",1)
-                    app.OBDEnabler("DistanceSinceDTC",1)
                     app.save()
 
             FloatLayout:  # Black "cover" for hidden part of screen

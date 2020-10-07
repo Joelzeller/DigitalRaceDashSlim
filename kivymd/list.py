@@ -171,23 +171,23 @@ Builder.load_string('''
         orientation: 'vertical'
         pos: root.pos
         padding: root._txt_left_pad, root._txt_top_pad, root._txt_right_pad, root._txt_bot_pad
-        MDLabel:
-            id: _lbl_primary
-            text: root.text
-            font_style: root.font_style
-            theme_text_color: root.theme_text_color
-            text_color: root.text_color
-            size_hint_y: None
-            height: self.texture_size[1]
-        MDLabel:
-            id: _lbl_secondary
-            text: '' if root._num_lines == 1 else root.secondary_text
-            font_style: root.secondary_font_style
-            theme_text_color: root.secondary_theme_text_color
-            text_color: root.secondary_text_color
-            size_hint_y: None
-            height: 0 if root._num_lines == 1 else self.texture_size[1]
-            shorten: True if root._num_lines == 2 else False
+        # MDLabel:
+        #     id: _lbl_primary
+        #     text: root.text
+        #     font_style: root.font_style
+        #     theme_text_color: root.theme_text_color
+        #     text_color: root.text_color
+        #     size_hint_y: None
+        #     height: self.texture_size[1]
+        # MDLabel:
+        #     id: _lbl_secondary
+        #     text: '' if root._num_lines == 1 else root.secondary_text
+        #     font_style: root.secondary_font_style
+        #     theme_text_color: root.secondary_theme_text_color
+        #     text_color: root.secondary_text_color
+        #     size_hint_y: None
+        #     height: 0 if root._num_lines == 1 else self.texture_size[1]
+        #     shorten: True if root._num_lines == 2 else False
 
 <OneLineAvatarListItem>
     BoxLayout:

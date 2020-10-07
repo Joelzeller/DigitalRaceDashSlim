@@ -1,91 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </select>
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a53fbcd2-c1a7-4ca9-931f-902d7460cacc" name="Default" comment="Digital Race Dash - Slim - Initial Release V0.0">
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="2517e63d-2640-459f-8929-46be4bc51c6a" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="CreatePatchCommitExecutor">
-    <option name="PATCH_PATH" value="" />
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="hiddenUrls">
-      <set>
-        <option value="https://github.com/Joelzeller/CoPilot.git" />
-      </set>
-    </option>
-  </component>
-  <component name="ProjectId" id="1cMEnAed4TwpF76K2Co7nccda7c" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1dFsS8QkCsusuvjNkMtrVljENYk" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Digital Race Dash/Digital Race Dash - Root" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="tests" factoryName="Attests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Digital Race Dash" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method />
-    </configuration>
-    <configuration name="Main" type="PythonConfigurationType" factoryName="Python">
-      <module name="Digital Race Dash" />
+  <component name="RunManager" selected="Python.DRDS">
+    <configuration name="DRDS" type="PythonConfigurationType" factoryName="Python">
+      <module name="Digital Race Dash Slim - Root" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\zelle\AppData\Local\Programs\Python\Python37\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
@@ -97,134 +42,157 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Digital Race Dash Slim - Root" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../3. Test Programs/KivyMD/KivyMD-master/demos/kitchen_sink" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../3. Test Programs/KivyMD/KivyMD-master/demos/kitchen_sink/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="scratch_1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Digital Race Dash Slim - Root" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="scratch_3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Digital Race Dash Slim - Root" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/scratch_3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.scratch_3" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.scratch_1" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a53fbcd2-c1a7-4ca9-931f-902d7460cacc" name="Default" comment="" />
-      <created>1528676077131</created>
+      <changelist id="2517e63d-2640-459f-8929-46be4bc51c6a" name="Default Changelist" comment="" />
+      <created>1592032172506</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1528676077131</updated>
+      <updated>1592032172506</updated>
     </task>
-    <task id="LOCAL-00001" summary="Digital Race Dash - Slim - Initial Release">
-      <created>1590337280563</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1590337280563</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Digital Race Dash - Slim - Initial Release V0.0">
-      <created>1590337356392</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1590337356392</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Digital Race Dash - Slim - Initial Release V0.0">
-      <created>1590337624825</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1590337624825</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Digital Race Dash - Slim - Initial Release V0.0">
-      <created>1590350602393</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1590350602393</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="CUSTOM_BOOLEAN_PROPERTIES">
-                <map>
-                  <entry key="Show.Git.Branches" value="false" />
-                </map>
-              </option>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="master" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="Vcs.Log.UiProperties">
-    <option name="RECENTLY_FILTERED_USER_GROUPS">
-      <collection />
-    </option>
-    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-      <collection />
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <ignored-roots>
-      <path value="$PROJECT_DIR$" />
-    </ignored-roots>
-    <MESSAGE value="Digital Race Dash - Slim - Initial Release" />
-    <MESSAGE value="Digital Race Dash - Slim - Initial Release V0.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="Digital Race Dash - Slim - Initial Release V0.0" />
-  </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590332160311">
-      <screen x="0" y="0" width="1920" height="1170" />
+    <state x="414" y="180" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592032322264">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="414" y="240" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1170@0.0.1920.1170" timestamp="1590332160311" />
-    <state x="740" y="340" key="FileChooserDialogImpl" timestamp="1590337172101">
-      <screen x="0" y="0" width="1920" height="1170" />
+    <state x="414" y="180" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1592032322264" />
+    <state x="740" y="280" key="FileChooserDialogImpl" timestamp="1598400419820">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="740" y="340" key="FileChooserDialogImpl/0.0.1920.1170@0.0.1920.1170" timestamp="1590337172101" />
-    <state x="686" y="497" width="667" height="318" key="Github.ShareDialog" timestamp="1590337538375">
-      <screen x="0" y="0" width="1920" height="1170" />
+    <state x="740" y="280" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1598400419820" />
+    <state width="1256" height="344" key="GridCell.Tab.0.bottom" timestamp="1599001734658">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="686" y="497" width="667" height="318" key="Github.ShareDialog/0.0.1920.1170@0.0.1920.1170" timestamp="1590337538375" />
-    <state width="1899" height="199" key="GridCell.Tab.0.bottom" timestamp="1590350675365">
-      <screen x="0" y="0" width="1920" height="1170" />
+    <state width="1899" height="242" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1598719626392" />
+    <state width="936" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1170@0.0.1920.1170" timestamp="1598566612940" />
+    <state width="1256" height="344" key="GridCell.Tab.0.bottom/0.0.2560.1410@0.0.2560.1410" timestamp="1599001734658" />
+    <state width="936" height="170" key="GridCell.Tab.0.bottom/1920.-111.1920.1170/0.0.1920.1050@0.0.1920.1050" timestamp="1593209041614" />
+    <state width="1256" height="344" key="GridCell.Tab.0.center" timestamp="1599001734658">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1899" height="199" key="GridCell.Tab.0.bottom/0.0.1920.1170@0.0.1920.1170" timestamp="1590350675365" />
-    <state width="1899" height="199" key="GridCell.Tab.0.center" timestamp="1590350675364">
-      <screen x="0" y="0" width="1920" height="1170" />
+    <state width="1899" height="242" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1598719626392" />
+    <state width="936" height="266" key="GridCell.Tab.0.center/0.0.1920.1170@0.0.1920.1170" timestamp="1598566612940" />
+    <state width="1256" height="344" key="GridCell.Tab.0.center/0.0.2560.1410@0.0.2560.1410" timestamp="1599001734658" />
+    <state width="936" height="170" key="GridCell.Tab.0.center/1920.-111.1920.1170/0.0.1920.1050@0.0.1920.1050" timestamp="1593209041613" />
+    <state width="1256" height="344" key="GridCell.Tab.0.left" timestamp="1599001734657">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1899" height="199" key="GridCell.Tab.0.center/0.0.1920.1170@0.0.1920.1170" timestamp="1590350675364" />
-    <state width="1899" height="199" key="GridCell.Tab.0.left" timestamp="1590350675364">
-      <screen x="0" y="0" width="1920" height="1170" />
+    <state width="1899" height="242" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1598719626392" />
+    <state width="936" height="266" key="GridCell.Tab.0.left/0.0.1920.1170@0.0.1920.1170" timestamp="1598566612940" />
+    <state width="1256" height="344" key="GridCell.Tab.0.left/0.0.2560.1410@0.0.2560.1410" timestamp="1599001734657" />
+    <state width="936" height="170" key="GridCell.Tab.0.left/1920.-111.1920.1170/0.0.1920.1050@0.0.1920.1050" timestamp="1593209041613" />
+    <state width="1256" height="344" key="GridCell.Tab.0.right" timestamp="1599001734658">
+      <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state width="1899" height="199" key="GridCell.Tab.0.left/0.0.1920.1170@0.0.1920.1170" timestamp="1590350675364" />
-    <state width="1899" height="199" key="GridCell.Tab.0.right" timestamp="1590350675364">
-      <screen x="0" y="0" width="1920" height="1170" />
+    <state width="1899" height="242" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1598719626392" />
+    <state width="936" height="266" key="GridCell.Tab.0.right/0.0.1920.1170@0.0.1920.1170" timestamp="1598566612940" />
+    <state width="1256" height="344" key="GridCell.Tab.0.right/0.0.2560.1410@0.0.2560.1410" timestamp="1599001734658" />
+    <state width="936" height="170" key="GridCell.Tab.0.right/1920.-111.1920.1170/0.0.1920.1050@0.0.1920.1050" timestamp="1593209041614" />
+    <state width="936" height="351" key="GridCell.Tab.1.bottom" timestamp="1598634258256">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1899" height="199" key="GridCell.Tab.0.right/0.0.1920.1170@0.0.1920.1170" timestamp="1590350675364" />
-    <state x="461" y="230" key="SettingsEditor" timestamp="1590337277457">
-      <screen x="0" y="0" width="1920" height="1170" />
+    <state width="936" height="351" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1598634258256" />
+    <state width="936" height="351" key="GridCell.Tab.1.center" timestamp="1598634258256">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="461" y="230" key="SettingsEditor/0.0.1920.1170@0.0.1920.1170" timestamp="1590337277457" />
-    <state x="92" y="92" width="1736" height="986" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1590350592122">
-      <screen x="0" y="0" width="1920" height="1170" />
+    <state width="936" height="351" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1598634258256" />
+    <state width="936" height="351" key="GridCell.Tab.1.left" timestamp="1598634258256">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="92" y="92" width="1736" height="986" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1170@0.0.1920.1170" timestamp="1590350592122" />
-    <state x="769" y="499" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590350612814">
-      <screen x="0" y="0" width="1920" height="1170" />
+    <state width="936" height="351" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1598634258256" />
+    <state width="936" height="351" key="GridCell.Tab.1.right" timestamp="1598634258256">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="769" y="499" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1170@0.0.1920.1170" timestamp="1590350612814" />
+    <state width="936" height="351" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1598634258256" />
+    <state x="92" y="92" width="1736" height="866" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1592348229165">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="92" y="92" width="1736" height="866" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1592348229165" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../../1. Libraries/Kivy/KivyMD/KivyMD-master-19e587e64eede4d80aa13757e2a429c595f96b48/demos/kitchen_sink/main.py</url>
+          <line>1</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
