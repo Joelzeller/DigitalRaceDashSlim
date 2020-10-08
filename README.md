@@ -8,9 +8,9 @@ Digital Race Dash designed for use on Raspberry Pi in a Honda S2000
 - Selectable F/C MPH/KPH
 - Brightness Control
 
-## Screemnshots:
-![Alt text](Screenshots/PassView.png?raw=true "Title")
-![Alt text](Screenshots/TopDown.png?raw=true "Title")
+## Screenshots & Photos:
+![Alt text](Screenshots/PassView.jpg?raw=true "Title")
+![Alt text](Screenshots/TopDown.jpg?raw=true "Title")
 ![Alt text](Screenshots/Gauges1.png?raw=true "Title")
 ![Alt text](Screenshots/Gauges2.png?raw=true "Title")
 ![Alt text](Screenshots/Gauges3.png?raw=true "Title")
