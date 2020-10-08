@@ -1,6 +1,13 @@
 # DigitalRaceDashSlim
 Digital Race Dash designed for use on Raspberry Pi in a Honda S2000
 
+Features:
+- Coolant Temp, Intake Temp, Battery Voltage, STFT, LTFT, Throttle Pos, Engine Load, Spark Advance, Gear Indicator, RPM (w/ MAX), Speed (w/ MAX)
+- Adjustable Warning thresholds for Coolant Temp, Intake Temp, STFT, LTFT, RPM and Speed
+- DTC Read and Clear Function
+- Selectable F/C MPH/KPH
+- Brightness Control
+
 ## Hardware and Setup I used:
 - Raspberry Pi 3B
 - Raspbian Buster Lite - (2020-02-13-raspbian-buster-lite) <- Newer untested as of now
