@@ -6,7 +6,7 @@
 
 #:import math math
 
-#V1.2.1
+#V1.2.2
 
 # Set Global Font Types to save typing later
 #:set GaugeFont "data/fonts/Eurostile LT Std Medium.ttf"
@@ -115,7 +115,7 @@ AnchorLayout:
                     pos: 275, 230
                     font_name: GaugeFont
                 Label:
-                    text: (str(app.Voltage)) + "v"
+                    text: (str(app.Voltage)) + "v "
                     font_size: 70
                     size_hint: None, None
                     height: 150
@@ -123,7 +123,7 @@ AnchorLayout:
                     halign: 'center'
                     valign: 'middle'
                     font_hinting: None
-                    pos: 550, 230
+                    pos: 555, 230
                     font_name: GaugeFont
 
         Gauge2Screen:
@@ -581,11 +581,25 @@ AnchorLayout:
                         app.OBDOFF()
                         sm.transition.direction = 'left'
                         sm.current = 'DTC'
+
+                Button:
+                    background_normal: 'data/elements/Apps/raspberry.png'
+                    background_down: 'data/elements/Apps/raspberry.png'
+                    opacity: 1
+                    pos: 300, 380
+                    size_hint: None, None
+                    height: 100
+                    width: 100
+                    on_press:
+                        app.OBDOFF()
+                        sm.transition.direction = 'left'
+                        sm.current = 'info'
+
                 Button:
                     background_normal: 'data/elements/Apps/C.png' if app.TempUnit == "C" else 'data/elements/Apps/F.png'
                     background_down: 'data/elements/Apps/C_pressed.png' if app.TempUnit == "C" else 'data/elements/Apps/F_pressed.png'
                     opacity: 1
-                    pos: 300, 380
+                    pos: 0, 280
                     size_hint: None, None
                     height: 100
                     width: 100
@@ -594,33 +608,35 @@ AnchorLayout:
                     background_normal: 'data/elements/Apps/KPH.png' if app.SpeedUnit == 'KPH' else 'data/elements/Apps/MPH.png'
                     background_down: 'data/elements/Apps/KPH_pressed.png' if app.SpeedUnit == 'KPH' else 'data/elements/Apps/MPH_pressed.png'
                     opacity: 1
-                    pos: 400, 380
+                    pos: 100, 280
                     size_hint: None, None
                     height: 100
                     width: 100
                     on_release: app.toggleSpeedUnit()
 
                 Button:
+                    background_normal: 'data/elements/Settings/ExitApp.png'
+                    background_down: 'data/elements/Settings/ExitApp_pressed.png'
+                    opacity: 1
+                    pos: 730, 300
+                    size_hint: None, None
+                    height: 70
+                    width: 70
+                    on_press: app.save()
+                    on_release: app.killapp()
+
+                Button:
                     background_normal: 'data/elements/Settings/Reboot.png'
                     background_down: 'data/elements/Settings/Reboot_pressed.png'
                     opacity: 1
-                    pos: 730, 250
+                    pos: 730, 230
                     size_hint: None, None
                     height: 70
                     width: 70
                     on_press: app.save()
                     on_release: app.reboot()
 
-                Button:
-                    background_normal: 'data/elements/Settings/ExitApp.png'
-                    background_down: 'data/elements/Settings/ExitApp_pressed.png'
-                    opacity: 1
-                    pos: 730, 320
-                    size_hint: None, None
-                    height: 70
-                    width: 70
-                    on_press: app.save()
-                    on_release: app.killapp()
+
 
         TempSettingsScreen:
             name: "tempsettings"
@@ -1309,9 +1325,9 @@ AnchorLayout:
                     pos: self.parent.center_x - 50, self.parent.center_y - 53
 
             Button:
-                id: dock_info
-                background_normal: 'data/elements/Dock/InfoButton.png'
-                background_down: 'data/elements/Dock/InfoButton_pressed.png'
+                id: dock_CEL
+                background_normal: 'data/elements/Dock/DockPill_CEL.png'
+                background_down: 'data/elements/Dock/DockPill_CEL_pressed.png'
                 opacity: 1
                 pos: 573, Dock_y0
                 size_hint: None, None
@@ -1319,7 +1335,7 @@ AnchorLayout:
                 width: 101
                 on_press:
                     sm.transition.direction = 'left'
-                    sm.current = 'info'
+                    sm.current = 'DTC'
                     app.OBDOFF()
                     app.save()
 
