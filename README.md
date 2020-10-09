@@ -173,6 +173,15 @@ Now, enter the line:
 
 Reboot for final test
 
+## Configure Variables:
+Modify in main.py 
+- developermode 0=Off 1=On <- 0 for in vehicle use, 1 for development/demo use
+- externalshutdown <- leave as 0 for now, in development
+- AccelEnabled <- leave as 0 for now, Accelerometer in development
+- OBDEnabled <- 1 if you are using OBDII features, leave it ON
+- onPi <- its default 1, but will change to 0 in code if detected not running on Pi (for development on PC)
+- autobrightness < 0 will keep brightness same as last boot, 1 allows custom time if using RTC, 2 will always dim on boot
+
 ## OPTIONAL Clean up boot:
 - Disable the Raspberry Pi logo in the corner of the screen by adding logo.nologo to end of string in /boot/cmdline.txt
 - Disable the Raspberry Pi ‘color test’ by adding the line disable_splash=1 to bottom of /boot/config.txt
